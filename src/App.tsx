@@ -30,6 +30,11 @@ const navItems = [
 
 const rootSubmenuKeys = ['rating', 'genres']
 
+//вынести за пределы компонента
+// const isSystemThemeLight = window.matchMedia(
+//   '(prefers-color-scheme: light)',
+// ).matches
+
 function App() {
   const isSystemThemeLight = window.matchMedia(
     '(prefers-color-scheme: light)',
@@ -50,14 +55,17 @@ function App() {
     fetch('https://corsproxy.io/?https://api.jikan.moe/v4/genres/anime')
       .then((response) => (response.ok ? response.json() : []))
       .then((data) => {
+        // Определить тип для жанра
         const genresArr = data.data.map((item: { name: string }) => {
           return { label: item.name, key: item.name }
         })
+        // жанры тоже вынести в redux store
         setGenres(genresArr)
       })
   }, [])
 
   return (
+    // тему и ConfigProvider вынести в main.tsx
     <ConfigProvider
       theme={{
         token: {
@@ -128,12 +136,11 @@ function App() {
               onOpenChange={onOpenChange}
               items={[
                 { label: 'Rating', key: 'rating', children: ratings },
-                divider,
+                divider, // { type: 'divider' }, убрать константу divider
                 {
                   label: 'Genres',
                   key: 'genres',
                   children: genres,
-                  style: { maxHeight: '60vh', overflow: 'scroll' },
                 },
               ]}
               openKeys={openKeys}

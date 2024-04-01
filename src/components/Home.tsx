@@ -54,6 +54,7 @@ function Home({ isLightTheme }: { isLightTheme: boolean }) {
       .then((response) => (response.ok ? response.json() : []))
       .then((data: { data: FetchedDBType[] }) => {
         const mappedData: AnimeCardType[] = data.data.map(
+          // можно вынести преобразование в отдельную функцию
           (item: FetchedDBType) => {
             return {
               titleEnglish: item.title_english,
@@ -69,6 +70,7 @@ function Home({ isLightTheme }: { isLightTheme: boolean }) {
             }
           },
         )
+        //dispatch(updateAnimeList(mappedData)) и убрать функцию updateAnimes
         updateAnimes(mappedData)
       })
   }, [cardsAmount, updateAnimes])
