@@ -1,0 +1,1 @@
+export const UPDATE_ANIME_LIST = 'UPDATE_ANIME_LIST'
