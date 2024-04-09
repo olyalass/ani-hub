@@ -1,40 +1,20 @@
 import { Flex } from 'antd'
 import AnimeCard from './Card'
-import { useCallback, useEffect, useState } from 'react'
-import { FetchedDBType, AnimeCardType, StateType } from '../types'
+import { useEffect, useState } from 'react'
+import { AnimeCardType, StateType } from '../types'
 import { Dispatch } from 'redux'
-import { useDispatch } from 'react-redux'
-import { updateAnimeList } from '../redux/actionCreators'
-import { useSelector } from 'react-redux'
-
-function getCardsAmount() {
-  const width = window.innerWidth
-  if (width > 1735) {
-    return 14
-  } else if (width > 1519) {
-    return 12
-  } else if (width > 1303) {
-    return 10
-  } else if (width > 1087) {
-    return 8
-  } else if (width > 871) {
-    return 6
-  } else {
-    return 4
-  }
-}
+import { useDispatch, useSelector } from 'react-redux'
+import { clearFilters, updateAnimeList } from '../redux/actionCreators'
+import reorganizeFetchedAnimes from '../utils/reorganizeFetchedAnimes'
+import getCardsAmount from '../utils/getCardsAmount'
+import fetchData from '../utils/fetchData'
+import replaceDupes from '../utils/replaceDupes'
 
 function Home({ isLightTheme }: { isLightTheme: boolean }) {
   const [cardsAmount, setCardsAmount] = useState(14)
   const dispatch: Dispatch = useDispatch()
   const cards = useSelector((state: StateType) => state.animeList)
-
-  const updateAnimes = useCallback(
-    (newList: AnimeCardType[]) => {
-      dispatch(updateAnimeList(newList))
-    },
-    [dispatch],
-  )
+  const filters = useSelector((state: StateType) => state.filters)
 
   useEffect(() => {
     function handleResize() {
@@ -44,39 +24,39 @@ function Home({ isLightTheme }: { isLightTheme: boolean }) {
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
+      dispatch(clearFilters())
     }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
-    const url = `https://corsproxy.io/?https://api.jikan.moe/v4/top/anime?limit=${cardsAmount}&sfw`
-
-    fetch(url)
-      .then((response) => (response.ok ? response.json() : []))
-      .then((data: { data: FetchedDBType[] }) => {
-        const mappedData: AnimeCardType[] = data.data.map(
-          (item: FetchedDBType) => {
-            return {
-              titleEnglish: item.title_english,
-              id: item.mal_id,
-              titleOrig: item.title,
-              genres: item.genres.map(
-                (genre: { name: string; mal_id: number }) => {
-                  return { name: genre.name, id: genre.mal_id }
-                },
-              ),
-              img: item.images.jpg.image_url,
-              rating: item.rating,
-            }
-          },
-        )
-        updateAnimes(mappedData)
-      })
-  }, [cardsAmount, updateAnimes])
+    let baseUrl = `https://corsproxy.io/?https://api.jikan.moe/v4/top/anime?limit=${cardsAmount}`
+    let filterQuery = ''
+    if (filters.genres[0]) {
+      const genreQuery = `&genres=${filters.genres[0]}`
+      filterQuery = genreQuery
+      baseUrl = `https://corsproxy.io/?https://api.jikan.moe/v4/anime?order_by=popularity&limit=${cardsAmount}`
+    }
+    if (filters.rating[0]) {
+      const ratingQuery = `&rating=${filters.rating[0]}`
+      filterQuery = filterQuery + ratingQuery
+    }
+    const url = baseUrl + filterQuery
+    fetchData(url)
+      .then((data) => replaceDupes(data, url, 1, cardsAmount))
+      .then((data) => reorganizeFetchedAnimes(data))
+      .then((data) => dispatch(updateAnimeList(data)))
+  }, [cardsAmount, dispatch, filters])
 
   return (
     <Flex wrap="wrap" justify="space-between" align="center" gap="middle">
       {cards.map((cardData: AnimeCardType) => {
-        return <AnimeCard cardData={cardData} isLightTheme={isLightTheme} />
+        return (
+          <AnimeCard
+            key={cardData.id}
+            cardData={cardData}
+            isLightTheme={isLightTheme}
+          />
+        )
       })}
     </Flex>
   )

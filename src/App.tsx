@@ -1,4 +1,4 @@
-import { Content, Footer, Header } from 'antd/es/layout/layout'
+import { Content, Header } from 'antd/es/layout/layout'
 import { SunOutlined, MoonOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router'
@@ -15,76 +15,56 @@ import {
   Switch,
 } from 'antd'
 import Sider from 'antd/es/layout/Sider'
-import { MenuDividerType } from 'antd/es/menu/hooks/useItems'
 import Home from './components/Home'
-import ratings from './shared/raitings'
-
-const divider: MenuDividerType = { type: 'divider' }
+import { getAppStyleUpgrades } from './antdStyleUpgrades'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from 'redux'
+import { updateGenresList } from './redux/actionCreators'
+import HomeMenu from './components/Sider/HomeMenu'
+import { GenreType } from './types'
 
 const navItems = [
   { key: '/', label: <Link to="/">Home</Link> },
-  { key: '/top', label: <Link to="/top">Top 100</Link> },
-  { key: '/genres', label: <Link to="/genres">Genres</Link> },
+  { key: '/search', label: <Link to="/top">Search</Link> },
+  { key: '/lists', label: <Link to="/lists">My Lists</Link> },
   { key: '/random', label: <Link to="/random">Random</Link> },
 ]
 
-const rootSubmenuKeys = ['rating', 'genres']
+const isSystemThemeLight = window.matchMedia(
+  '(prefers-color-scheme: light)',
+).matches
 
 function App() {
-  const isSystemThemeLight = window.matchMedia(
-    '(prefers-color-scheme: light)',
-  ).matches
   const [isLightTheme, setIsLightTheme] = useState(isSystemThemeLight)
-  const [genres, setGenres] = useState([])
-  const [openKeys, setOpenKeys] = useState(['rating'])
-  const onOpenChange = (keys: string[]) => {
-    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1)
-    if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      setOpenKeys(keys)
-    } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
-    }
-  }
+  const dispatch: Dispatch = useDispatch()
 
   useEffect(() => {
     fetch('https://corsproxy.io/?https://api.jikan.moe/v4/genres/anime')
       .then((response) => (response.ok ? response.json() : []))
       .then((data) => {
-        const genresArr = data.data.map((item: { name: string }) => {
-          return { label: item.name, key: item.name }
-        })
-        setGenres(genresArr)
+        const genresArr: GenreType[] = data.data.map(
+          (item: { name: string; mal_id: number }) => {
+            return { label: item.name, key: item.mal_id }
+          },
+        )
+        dispatch(updateGenresList(genresArr))
       })
-  }, [])
+  }, [dispatch])
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: '#d29ada',
-          colorSuccess: '#8ae1c0',
-          colorWarning: '#f7c180',
-          colorError: '#fa8788',
-          borderRadius: 9,
-          fontSizeHeading1: 24,
-          colorBgBase: isLightTheme ? '#f9f9f9' : '#26272d',
-          colorLink: '#d29ada',
-          colorLinkHover: '#F593F5',
-        },
-        components: { Switch: { trackMinWidth: 60 } },
-      }}
-    >
+    <ConfigProvider theme={getAppStyleUpgrades(isLightTheme)}>
       <Layout style={{ minHeight: '100vh' }}>
         <Header
           style={{
             display: 'flex',
             justifyContent: 'space-around',
+            padding: 0,
           }}
         >
           <Flex
             align="center"
             style={{
-              width: '90%',
+              width: 'calc(100vw - 60px)',
               rowGap: '20px',
             }}
           >
@@ -109,7 +89,7 @@ function App() {
               <Space.Compact size="middle">
                 <Input.Search></Input.Search>
               </Space.Compact>
-              <Menu mode="horizontal" theme="dark" items={navItems} />
+              <Menu mode="horizontal" theme="dark" items={navItems}></Menu>
             </Flex>
             <Switch
               style={{ marginLeft: '20px' }}
@@ -122,40 +102,17 @@ function App() {
         </Header>
         <Layout>
           <Sider theme={isLightTheme ? 'light' : 'dark'}>
-            <Menu
-              mode="inline"
-              theme={isLightTheme ? 'light' : 'dark'}
-              onOpenChange={onOpenChange}
-              items={[
-                { label: 'Rating', key: 'rating', children: ratings },
-                divider,
-                {
-                  label: 'Genres',
-                  key: 'genres',
-                  children: genres,
-                  style: { maxHeight: '60vh', overflow: 'scroll' },
-                },
-              ]}
-              openKeys={openKeys}
-              defaultOpenKeys={openKeys}
-            />
+            <Routes>
+              <Route
+                path="/"
+                element={<HomeMenu isLightTheme={isLightTheme} />}
+              />
+            </Routes>
           </Sider>
           <Content style={{ padding: '30px 20px 0' }}>
             <Routes>
               <Route path="/" element={<Home isLightTheme={isLightTheme} />} />
             </Routes>
-            <Footer
-              style={{
-                paddingTop: '40px',
-                marginLeft: 'auto',
-                width: '300px',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <a>Contacts</a>
-              <a href="https://jikan.moe">API Source</a>
-            </Footer>
           </Content>
         </Layout>
       </Layout>

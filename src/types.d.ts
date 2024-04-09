@@ -19,13 +19,42 @@ export type AnimeCardType = {
 export type StateType = {
   animeList: CardDataType[]
   currPage: number
+  filters: filtersType
+  genres: GenreType[]
 }
 
-export type AnimeActionType = {
+type GenreType = { label: string; key: string }
+
+type filtersType = {
+  rating: string[]
+  genres: string[]
+}
+
+export type filterCategory = 'rating' | 'genres'
+
+type UpdateAnimeActionType = {
   type: 'UPDATE_ANIME_LIST'
   payload: CardDataType[]
 }
 
-export type ActionType = AnimeActionType
+type MonoFilterActionType = {
+  type: 'SET_MONO_FILTER'
+  payload: filtersType
+}
+
+type UpdateGenresActionType = {
+  type: 'UPDATE_GENRES_LIST'
+  payload: GenreType[]
+}
+
+type ClearFiltersActionType = {
+  type: 'CLEAR_FILTERS'
+}
+
+export type ActionType =
+  | UpdateAnimeActionType
+  | MonoFilterActionType
+  | UpdateGenresActionType
+  | ClearFiltersActionType
 
 export type DispatchType = (args: ActionType) => ActionType

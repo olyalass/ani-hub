@@ -22,7 +22,6 @@ function AnimeCard({ cardData, isLightTheme }: Props) {
     >
       <Card
         style={{ width: '200px', height: '400px', overflow: 'hidden' }}
-        key={cardData.id}
         cover={
           <img
             alt={cardData.titleEnglish}
@@ -36,7 +35,7 @@ function AnimeCard({ cardData, isLightTheme }: Props) {
           color={
             isLightTheme
               ? ratings.find((r) => r.label === cardData.rating)?.color
-              : ratings.find((r) => r.label === cardData.rating)?.darkColor
+              : ratings.find((r) => r.label === cardData.rating)?.darkcolor
           }
           style={{
             position: 'absolute',
@@ -46,7 +45,7 @@ function AnimeCard({ cardData, isLightTheme }: Props) {
             overflow: 'hidden',
           }}
         >
-          {ratings.find((r) => r.label === cardData.rating)?.shortLabel}
+          {ratings.find((r) => r.label === cardData.rating)?.shortlabel}
         </Tag>
         <Meta
           title={cardData.titleEnglish}
