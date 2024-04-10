@@ -1,3 +1,5 @@
+import * as actionTypes from './redux/actionTypes'
+
 export type FetchedDBType = {
   title_english: string
   title: string
@@ -35,27 +37,27 @@ type filtersType = {
 export type filterCategory = 'rating' | 'genres'
 
 type UpdateAnimeActionType = {
-  type: 'UPDATE_ANIME_LIST'
+  type: typeof actionTypes.UPDATE_ANIME_LIST
   payload: CardDataType[]
 }
 
 type MonoGenreActionType = {
-  type: 'SET_MONO_GENRE'
+  type: typeof actionTypes.SET_MONO_GENRE
   payload: filtersType
 }
 
 type MonoRatingActionType = {
-  type: 'SET_MONO_RATING'
+  type: typeof actionTypes.SET_MONO_RATING
   payload: filtersType
 }
 
 type UpdateGenresActionType = {
-  type: 'UPDATE_GENRES_LIST'
+  type: typeof actionTypes.UPDATE_GENRES_LIST
   payload: GenreType[]
 }
 
 type ClearFiltersActionType = {
-  type: 'CLEAR_FILTERS'
+  type: typeof actionTypes.CLEAR_FILTERS
 }
 
 export type ActionType =
