@@ -7,7 +7,7 @@ import AnimeCard from './Card'
 import { AnimeCardType, StateType } from '../types'
 import { clearFilters, updateAnimeList } from '../redux/actionCreators'
 import parseAnimeResponseItem from '../api/parsers/parseAnimeResponseItem'
-import getCardsAmount from '../utils/getCardsAmount'
+import determineCardsAmountByViewport from '../utils/determineCardsAmountByViewport'
 import requestAnimeData from '../api/requests/requestAnimeData'
 import requestDupesReplacement from '../api/requests/requestDupesReplacement'
 
@@ -19,7 +19,7 @@ function Home({ isLightTheme }: { isLightTheme: boolean }) {
 
   useEffect(() => {
     function handleResize() {
-      setCardsAmount(getCardsAmount())
+      setCardsAmount(determineCardsAmountByViewport())
     }
     handleResize()
     window.addEventListener('resize', handleResize)

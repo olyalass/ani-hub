@@ -1,4 +1,4 @@
-function getCardsAmount() {
+function determineCardsAmountByViewport() {
   if (window.matchMedia('(min-width: 1735px)').matches) {
     return 14
   } else if (window.matchMedia('(min-width: 1519px)').matches) {
@@ -14,4 +14,4 @@ function getCardsAmount() {
   }
 }
 
-export default getCardsAmount
+export default determineCardsAmountByViewport

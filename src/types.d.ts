@@ -1,6 +1,6 @@
 import * as actionTypes from './redux/actionTypes'
 
-export type FetchedDBType = {
+export type AnimeBaseResponseType = {
   title_english: string
   title: string
   mal_id: number

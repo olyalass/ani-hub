@@ -1,13 +1,13 @@
-import { FetchedDBType } from '../../types'
+import { AnimeBaseResponseType } from '../../types'
 import requestAnimeData from './requestAnimeData'
 
 async function requestDupesReplacement(
-  arr: FetchedDBType[],
+  arr: AnimeBaseResponseType[],
   url: string,
   page: number,
   iPerPage: number,
 ) {
-  const newArr: FetchedDBType[] = arr.slice(0)
+  const newArr: AnimeBaseResponseType[] = arr.slice(0)
   let currPage = page
   while (newArr.length < iPerPage) {
     currPage += 1
