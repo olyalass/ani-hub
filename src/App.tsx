@@ -42,8 +42,8 @@ function App() {
   useEffect(() => {
     fetch('https://corsproxy.io/?https://api.jikan.moe/v4/genres/anime')
       .then((response) => (response.ok ? response.json() : []))
-      .then((data) => {
-        const genresArr: GenreType[] = data.data.map(
+      .then(({ data }) => {
+        const genresArr: GenreType[] = data.map(
           (item: { name: string; mal_id: number }) => {
             return { label: item.name, key: item.mal_id }
           },
