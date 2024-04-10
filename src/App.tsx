@@ -24,6 +24,7 @@ import { updateGenresList } from './redux/actionCreators'
 import HomeMenu from './components/Sider/HomeMenu'
 import requestGenres from './api/requests/requestGenres'
 import parseGenre from './api/parsers/parseGenre'
+import ThemeContext from './shared/ThemeContext'
 
 const navItems = [
   { key: '/', label: <Link to="/">Home</Link> },
@@ -47,71 +48,70 @@ function App() {
   }, [dispatch])
 
   return (
-    <ConfigProvider theme={getAppStyleUpgrades(isLightTheme)}>
-      <Layout style={{ minHeight: '100vh' }}>
-        <Header
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            padding: 0,
-          }}
-        >
-          <Flex
-            align="center"
+    <ThemeContext.Provider value={isLightTheme}>
+      <ConfigProvider theme={getAppStyleUpgrades(isLightTheme)}>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Header
             style={{
-              width: 'calc(100vw - 60px)',
-              rowGap: '20px',
+              display: 'flex',
+              justifyContent: 'space-around',
+              padding: 0,
             }}
           >
-            <Typography.Title
-              style={{
-                marginTop: '0px',
-                marginBottom: '0px',
-                marginRight: '50px',
-                color: 'rgba(255, 255, 255, 0.65)',
-                cursor: 'default',
-              }}
-            >
-              Anime Universe
-            </Typography.Title>
             <Flex
               align="center"
               style={{
-                flexGrow: 1,
-                justifyContent: 'space-between',
+                width: 'calc(100vw - 60px)',
+                rowGap: '20px',
               }}
             >
-              <Space.Compact size="middle">
-                <Input.Search></Input.Search>
-              </Space.Compact>
-              <Menu mode="horizontal" theme="dark" items={navItems} />
-            </Flex>
-            <Switch
-              style={{ marginLeft: '20px' }}
-              checkedChildren={<SunOutlined />}
-              unCheckedChildren={<MoonOutlined />}
-              defaultChecked={isLightTheme}
-              onChange={() => setIsLightTheme(!isLightTheme)}
-            />
-          </Flex>
-        </Header>
-        <Layout>
-          <Sider theme={isLightTheme ? 'light' : 'dark'}>
-            <Routes>
-              <Route
-                path="/"
-                element={<HomeMenu isLightTheme={isLightTheme} />}
+              <Typography.Title
+                style={{
+                  marginTop: '0px',
+                  marginBottom: '0px',
+                  marginRight: '50px',
+                  color: 'rgba(255, 255, 255, 0.65)',
+                  cursor: 'default',
+                }}
+              >
+                Anime Universe
+              </Typography.Title>
+              <Flex
+                align="center"
+                style={{
+                  flexGrow: 1,
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Space.Compact size="middle">
+                  <Input.Search></Input.Search>
+                </Space.Compact>
+                <Menu mode="horizontal" theme="dark" items={navItems} />
+              </Flex>
+              <Switch
+                style={{ marginLeft: '20px' }}
+                checkedChildren={<SunOutlined />}
+                unCheckedChildren={<MoonOutlined />}
+                defaultChecked={isLightTheme}
+                onChange={() => setIsLightTheme(!isLightTheme)}
               />
-            </Routes>
-          </Sider>
-          <Content style={{ padding: '30px 20px 0' }}>
-            <Routes>
-              <Route path="/" element={<Home isLightTheme={isLightTheme} />} />
-            </Routes>
-          </Content>
+            </Flex>
+          </Header>
+          <Layout>
+            <Sider theme={isLightTheme ? 'light' : 'dark'}>
+              <Routes>
+                <Route path="/" element={<HomeMenu />} />
+              </Routes>
+            </Sider>
+            <Content style={{ padding: '30px 20px 0' }}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
-    </ConfigProvider>
+      </ConfigProvider>
+    </ThemeContext.Provider>
   )
 }
 
