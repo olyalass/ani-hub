@@ -84,7 +84,7 @@ function App() {
               <Space.Compact size="middle">
                 <Input.Search></Input.Search>
               </Space.Compact>
-              <Menu mode="horizontal" theme="dark" items={navItems}></Menu>
+              <Menu mode="horizontal" theme="dark" items={navItems} />
             </Flex>
             <Switch
               style={{ marginLeft: '20px' }}
