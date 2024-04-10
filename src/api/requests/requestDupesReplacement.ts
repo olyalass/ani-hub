@@ -8,10 +8,11 @@ async function requestDupesReplacement(
   iPerPage: number,
 ) {
   const newArr: FetchedDBType[] = arr.slice(0)
+  let currPage = page
   while (newArr.length < iPerPage) {
-    ++page
+    currPage += 1
     const diff = iPerPage - newArr.length
-    const newUrl = url + `&page=${page}`
+    const newUrl = url + `&page=${currPage}`
     const extraData = await requestAnimeData(newUrl)
 
     newArr.concat(extraData.slice(0, diff))
