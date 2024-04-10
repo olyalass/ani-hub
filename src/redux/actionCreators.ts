@@ -1,9 +1,9 @@
 import {
   AnimeCardType,
   ClearFiltersActionType,
-  filterCategory,
   GenreType,
-  MonoFilterActionType,
+  MonoGenreActionType,
+  MonoRatingActionType,
 } from '../types'
 import * as actionTypes from './actionTypes'
 
@@ -15,18 +15,15 @@ export function updateAnimeList(animeData: AnimeCardType[]) {
   return action
 }
 
-export function setMonoFilter(filter: string, filterType: filterCategory) {
-  const action: MonoFilterActionType = {
-    type: actionTypes.SET_MONO_FILTER,
-    payload: { rating: [], genres: [] },
-  }
-  if (filterType === 'genres') {
-    action.payload = { rating: [], genres: [filter] }
-  } else if (filterType === 'rating') {
-    action.payload = { rating: [filter], genres: [] }
-  }
-  return action
-}
+export const setMonoRating = (rating: string): MonoRatingActionType => ({
+  type: actionTypes.SET_MONO_RATING,
+  payload: { rating: [rating], genres: [] },
+})
+
+export const setMonoGenre = (genre: string): MonoGenreActionType => ({
+  type: actionTypes.SET_MONO_GENRE,
+  payload: { rating: [], genres: [genre] },
+})
 
 export function clearFilters() {
   const action: ClearFiltersActionType = {

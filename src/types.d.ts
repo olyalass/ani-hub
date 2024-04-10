@@ -39,8 +39,13 @@ type UpdateAnimeActionType = {
   payload: CardDataType[]
 }
 
-type MonoFilterActionType = {
-  type: 'SET_MONO_FILTER'
+type MonoGenreActionType = {
+  type: 'SET_MONO_GENRE'
+  payload: filtersType
+}
+
+type MonoRatingActionType = {
+  type: 'SET_MONO_RATING'
   payload: filtersType
 }
 
@@ -55,7 +60,8 @@ type ClearFiltersActionType = {
 
 export type ActionType =
   | UpdateAnimeActionType
-  | MonoFilterActionType
+  | MonoGenreActionType
+  | MonoRatingActionType
   | UpdateGenresActionType
   | ClearFiltersActionType
 

@@ -4,7 +4,11 @@ import { Menu } from 'antd'
 
 import ratings from '../../shared/raitings'
 import { StateType } from '../../types'
-import { clearFilters, setMonoFilter } from '../../redux/actionCreators'
+import {
+  clearFilters,
+  setMonoGenre,
+  setMonoRating,
+} from '../../redux/actionCreators'
 
 const rootSubmenuKeys = ['rating', 'genres']
 
@@ -27,9 +31,9 @@ function HomeMenu({ isLightTheme }: Props) {
   const handleMenuClick = useCallback(
     ({ key, keyPath }: { key: string; keyPath: string[] }) => {
       if (keyPath.includes('rating')) {
-        dispatch(setMonoFilter(key, 'rating'))
+        dispatch(setMonoRating(key))
       } else if (keyPath.includes('genres')) {
-        dispatch(setMonoFilter(key, 'genres'))
+        dispatch(setMonoGenre(key))
       } else {
         dispatch(clearFilters())
       }
