@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import AnimeCard from './Card'
 import { AnimeCardType, StateType } from '../types'
 import { clearFilters, updateAnimeList } from '../redux/actionCreators'
-import reorganizeFetchedAnimes from '../utils/reorganizeFetchedAnimes'
+import parseAnimeResponseItem from '../api/parsers/parseAnimeResponseItem'
 import getCardsAmount from '../utils/getCardsAmount'
-import fetchData from '../utils/fetchData'
-import replaceDupes from '../utils/replaceDupes'
+import requestAnimeData from '../api/requests/requestAnimeData'
+import requestDupesReplacement from '../api/requests/requestDupesReplacement'
 
 function Home({ isLightTheme }: { isLightTheme: boolean }) {
   const [cardsAmount, setCardsAmount] = useState(14)
@@ -42,10 +42,11 @@ function Home({ isLightTheme }: { isLightTheme: boolean }) {
       filterQuery = filterQuery + ratingQuery
     }
     const url = baseUrl + filterQuery
-    fetchData(url)
-      .then((data) => replaceDupes(data, url, 1, cardsAmount))
-      .then((data) => reorganizeFetchedAnimes(data))
-      .then((data) => dispatch(updateAnimeList(data)))
+    requestAnimeData(url)
+      .then((data) => requestDupesReplacement(data, url, 1, cardsAmount))
+      .then((data) =>
+        dispatch(updateAnimeList(data.map(parseAnimeResponseItem))),
+      )
   }, [cardsAmount, dispatch, filters])
 
   return (

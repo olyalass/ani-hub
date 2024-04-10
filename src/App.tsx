@@ -22,7 +22,8 @@ import Home from './components/Home'
 import { getAppStyleUpgrades } from './antdStyleUpgrades'
 import { updateGenresList } from './redux/actionCreators'
 import HomeMenu from './components/Sider/HomeMenu'
-import { GenreType } from './types'
+import requestGenres from './api/requests/requestGenres'
+import parseGenre from './api/parsers/parseGenre'
 
 const navItems = [
   { key: '/', label: <Link to="/">Home</Link> },
@@ -40,16 +41,9 @@ function App() {
   const dispatch: Dispatch = useDispatch()
 
   useEffect(() => {
-    fetch('https://corsproxy.io/?https://api.jikan.moe/v4/genres/anime')
-      .then((response) => (response.ok ? response.json() : []))
-      .then(({ data }) => {
-        const genresArr: GenreType[] = data.map(
-          (item: { name: string; mal_id: number }) => {
-            return { label: item.name, key: item.mal_id }
-          },
-        )
-        dispatch(updateGenresList(genresArr))
-      })
+    requestGenres().then((genres) =>
+      dispatch(updateGenresList(genres.map(parseGenre))),
+    )
   }, [dispatch])
 
   return (

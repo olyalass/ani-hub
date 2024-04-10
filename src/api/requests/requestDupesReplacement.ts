@@ -1,7 +1,7 @@
-import { FetchedDBType } from '../types'
-import fetchData from './fetchData'
+import { FetchedDBType } from '../../types'
+import requestAnimeData from './requestAnimeData'
 
-async function replaceDupes(
+async function requestDupesReplacement(
   arr: FetchedDBType[],
   url: string,
   page: number,
@@ -12,11 +12,11 @@ async function replaceDupes(
     ++page
     const diff = iPerPage - newArr.length
     const newUrl = url + `&page=${page}`
-    const extraData = await fetchData(newUrl)
+    const extraData = await requestAnimeData(newUrl)
 
     newArr.concat(extraData.slice(0, diff))
   }
   return newArr
 }
 
-export default replaceDupes
+export default requestDupesReplacement

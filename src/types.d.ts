@@ -7,6 +7,8 @@ export type FetchedDBType = {
   rating: string
 }
 
+export type GenresBaseResponseType = { name: string; mal_id: number }
+
 export type AnimeCardType = {
   titleEnglish: string
   titleOrig: string
@@ -23,7 +25,7 @@ export type StateType = {
   genres: GenreType[]
 }
 
-type GenreType = { label: string; key: string }
+type GenreType = { label: string; key: number }
 
 type filtersType = {
   rating: string[]
