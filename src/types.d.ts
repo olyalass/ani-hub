@@ -9,6 +9,14 @@ export type AnimeBaseResponseType = {
   rating: string
 }
 
+export type RatingType = {
+  key: string
+  label: string
+  color: string
+  darkcolor: string
+  shortlabel: string
+}
+
 export type GenresBaseResponseType = { name: string; mal_id: number }
 
 export type AnimeCardType = {

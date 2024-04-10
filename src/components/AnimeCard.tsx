@@ -1,7 +1,7 @@
 import { Card, ConfigProvider, Flex, Tag } from 'antd'
 
 import { AnimeCardType } from '../types'
-import ratings from '../shared/raitings'
+import { ratingsMap } from '../shared/raitings'
 
 const { Meta } = Card
 
@@ -36,8 +36,8 @@ function AnimeCard({ cardData, isLightTheme }: Props) {
         <Tag
           color={
             isLightTheme
-              ? ratings.find((r) => r.label === cardData.rating)?.color
-              : ratings.find((r) => r.label === cardData.rating)?.darkcolor
+              ? ratingsMap[cardData.rating]?.color
+              : ratingsMap[cardData.rating]?.darkcolor
           }
           style={{
             position: 'absolute',
@@ -47,7 +47,7 @@ function AnimeCard({ cardData, isLightTheme }: Props) {
             overflow: 'hidden',
           }}
         >
-          {ratings.find((r) => r.label === cardData.rating)?.shortlabel}
+          {ratingsMap[cardData.rating].shortlabel}
         </Tag>
         <Meta
           title={cardData.titleEnglish}

@@ -1,4 +1,6 @@
-const ratings = [
+import { RatingType } from '../types'
+
+export const ratings: RatingType[] = [
   {
     key: 'g',
     label: 'G - All Ages',
@@ -43,4 +45,11 @@ const ratings = [
     shortlabel: 'Rx',
   },
 ]
-export default ratings
+
+export const ratingsMap: Record<string, RatingType> = ratings.reduce(
+  (acc, item) => ({
+    ...acc,
+    [item.label]: item,
+  }),
+  {},
+)

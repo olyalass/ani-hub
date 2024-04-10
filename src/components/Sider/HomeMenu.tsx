@@ -2,7 +2,7 @@ import { useCallback, useContext, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Menu } from 'antd'
 
-import ratings from '../../shared/raitings'
+import { ratings } from '../../shared/raitings'
 import { StateType } from '../../types'
 import {
   clearFilters,
