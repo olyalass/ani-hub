@@ -1,9 +1,5 @@
 import { Content, Header } from 'antd/es/layout/layout'
 import { SunOutlined, MoonOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
-import { Routes, Route } from 'react-router'
-import { Link } from 'react-router-dom'
-import './App.css'
 import {
   ConfigProvider,
   Layout,
@@ -15,10 +11,15 @@ import {
   Switch,
 } from 'antd'
 import Sider from 'antd/es/layout/Sider'
-import Home from './components/Home'
-import { getAppStyleUpgrades } from './antdStyleUpgrades'
+import { useEffect, useState } from 'react'
+import { Routes, Route } from 'react-router'
+import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
+
+import './App.css'
+import Home from './components/Home'
+import { getAppStyleUpgrades } from './antdStyleUpgrades'
 import { updateGenresList } from './redux/actionCreators'
 import HomeMenu from './components/Sider/HomeMenu'
 import { GenreType } from './types'

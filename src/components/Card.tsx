@@ -1,6 +1,8 @@
-import { AnimeCardType } from '../types'
 import { Card, ConfigProvider, Flex, Tag } from 'antd'
+
+import { AnimeCardType } from '../types'
 import ratings from '../shared/raitings'
+
 const { Meta } = Card
 
 type Props = {

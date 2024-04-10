@@ -1,9 +1,10 @@
 import { Flex } from 'antd'
-import AnimeCard from './Card'
 import { useEffect, useState } from 'react'
-import { AnimeCardType, StateType } from '../types'
 import { Dispatch } from 'redux'
 import { useDispatch, useSelector } from 'react-redux'
+
+import AnimeCard from './Card'
+import { AnimeCardType, StateType } from '../types'
 import { clearFilters, updateAnimeList } from '../redux/actionCreators'
 import reorganizeFetchedAnimes from '../utils/reorganizeFetchedAnimes'
 import getCardsAmount from '../utils/getCardsAmount'
