@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Menu } from 'antd'
 
@@ -26,18 +26,21 @@ function HomeMenu() {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
     }
   }
-  const handleMenuClick = useCallback(
-    ({ key, keyPath }: { key: string; keyPath: string[] }) => {
-      if (keyPath.includes('rating')) {
-        dispatch(setMonoRating(key))
-      } else if (keyPath.includes('genres')) {
-        dispatch(setMonoGenre(key))
-      } else {
-        dispatch(clearFilters())
-      }
-    },
-    [dispatch],
-  )
+  const handleMenuClick = ({
+    key,
+    keyPath,
+  }: {
+    key: string
+    keyPath: string[]
+  }) => {
+    if (keyPath.includes('rating')) {
+      dispatch(setMonoRating(key))
+    } else if (keyPath.includes('genres')) {
+      dispatch(setMonoGenre(key))
+    } else {
+      dispatch(clearFilters())
+    }
+  }
 
   return (
     <Menu
