@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Dispatch } from 'redux'
 import { useDispatch, useSelector } from 'react-redux'
 
-import AnimeCard from './Card'
+import AnimeCard from './AnimeCard'
 import { AnimeCardType, StateType } from '../types'
 import { clearFilters, updateAnimeList } from '../redux/actionCreators'
 import parseAnimeResponseItem from '../api/parsers/parseAnimeResponseItem'
