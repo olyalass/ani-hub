@@ -1,5 +1,5 @@
 import { Flex } from 'antd'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dispatch } from 'redux'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -10,10 +10,8 @@ import parseAnimeResponseItem from '../api/parsers/parseAnimeResponseItem'
 import determineCardsAmountByViewport from '../utils/determineCardsAmountByViewport'
 import requestAnimeData from '../api/requests/requestAnimeData'
 import requestDupesReplacement from '../api/requests/requestDupesReplacement'
-import ThemeContext from '../shared/ThemeContext'
 
 function Home() {
-  const isLightTheme = useContext(ThemeContext)
   const [cardsAmount, setCardsAmount] = useState(14)
   const dispatch: Dispatch = useDispatch()
   const cards = useSelector((state: StateType) => state.animeList)
@@ -54,13 +52,7 @@ function Home() {
   return (
     <Flex wrap="wrap" justify="space-between" align="center" gap="middle">
       {cards.map((cardData: AnimeCardType) => {
-        return (
-          <AnimeCard
-            key={cardData.id}
-            cardData={cardData}
-            isLightTheme={isLightTheme}
-          />
-        )
+        return <AnimeCard key={cardData.id} cardData={cardData} />
       })}
     </Flex>
   )

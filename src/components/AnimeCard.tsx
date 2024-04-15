@@ -1,16 +1,19 @@
 import { Card, ConfigProvider, Flex, Tag } from 'antd'
+import { useContext } from 'react'
 
 import { AnimeCardType } from '../types'
 import { ratingsMap } from '../shared/raitings'
+import ThemeContext from '../shared/ThemeContext'
 
 const { Meta } = Card
 
 type Props = {
   cardData: AnimeCardType
-  isLightTheme: boolean
 }
 
-function AnimeCard({ cardData, isLightTheme }: Props) {
+function AnimeCard({ cardData }: Props) {
+  const isLightTheme = useContext(ThemeContext)
+  const ratingInfo = ratingsMap[cardData.rating]
   return (
     <ConfigProvider
       theme={{
@@ -34,11 +37,7 @@ function AnimeCard({ cardData, isLightTheme }: Props) {
         }
       >
         <Tag
-          color={
-            isLightTheme
-              ? ratingsMap[cardData.rating]?.color
-              : ratingsMap[cardData.rating]?.darkcolor
-          }
+          color={isLightTheme ? ratingInfo.color : ratingInfo.darkcolor}
           style={{
             position: 'absolute',
             top: '10px',
@@ -47,7 +46,7 @@ function AnimeCard({ cardData, isLightTheme }: Props) {
             overflow: 'hidden',
           }}
         >
-          {ratingsMap[cardData.rating].shortlabel}
+          {ratingInfo.shortlabel}
         </Tag>
         <Meta
           title={cardData.titleEnglish}

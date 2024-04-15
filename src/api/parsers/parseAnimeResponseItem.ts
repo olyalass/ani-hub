@@ -1,6 +1,8 @@
-import { FetchedDBType } from '../../types'
+import { AnimeBaseResponseType, AnimeCardType } from '../../types'
 
-const parseAnimeResponseItem = (item: FetchedDBType) => ({
+const parseAnimeResponseItem = (
+  item: AnimeBaseResponseType,
+): AnimeCardType => ({
   titleEnglish: item.title_english,
   id: item.mal_id,
   titleOrig: item.title,
