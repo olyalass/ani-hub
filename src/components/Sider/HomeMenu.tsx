@@ -10,13 +10,17 @@ import {
   setMonoRating,
 } from '../../redux/actionCreators'
 import ThemeContext from '../../shared/ThemeContext'
+import GenresError from '../Errors/GenresError'
+import GenresLoading from '../Loadings/GenresLoading'
 
 const rootSubmenuKeys = ['rating', 'genres']
 
 function HomeMenu() {
+  const isLoading = useSelector((state: StateType) => state.isLoadingGenres)
+  const isError = useSelector((state: StateType) => state.isGenresError)
+  const genres = useSelector((state: StateType) => state.genres)
   const isLightTheme = useContext(ThemeContext)
   const [openKeys, setOpenKeys] = useState(['rating'])
-  const genres = useSelector((state: StateType) => state.genres)
   const dispatch = useDispatch()
   const onOpenChange = (keys: string[]) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1)
@@ -48,24 +52,28 @@ function HomeMenu() {
       theme={isLightTheme ? 'light' : 'dark'}
       onOpenChange={onOpenChange}
       onClick={handleMenuClick}
-      items={[
-        { label: 'No filters', key: 'clear' },
-        { label: 'Rating', key: 'rating', children: ratings },
-        { type: 'divider' },
-        {
-          label: 'Genres',
-          key: 'genres',
-          children: genres,
-          style: {
-            maxHeight: 'calc(100vh - 148px)',
-            overflow: 'scroll',
-          },
-        },
-      ]}
       openKeys={openKeys}
       defaultOpenKeys={openKeys}
       defaultSelectedKeys={['clear']}
-    />
+    >
+      <Menu.Item key="clear">No filters</Menu.Item>
+      <Menu.SubMenu key="rating" title="Rating">
+        {ratings.map((item) => (
+          <Menu.Item key={item.key}>{item.label}</Menu.Item>
+        ))}
+      </Menu.SubMenu>
+      <Menu.SubMenu key="genres" title="Genres">
+        {isLoading ? (
+          <GenresLoading />
+        ) : isError ? (
+          <GenresError />
+        ) : (
+          genres.map((genre) => (
+            <Menu.Item key={genre.key}>{genre.label}</Menu.Item>
+          ))
+        )}
+      </Menu.SubMenu>
+    </Menu>
   )
 }
 

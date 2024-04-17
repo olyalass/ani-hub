@@ -1,3 +1,5 @@
+import { Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
 import * as actionTypes from './redux/actionTypes'
 
 export type AnimeBaseResponseType = {
@@ -33,6 +35,10 @@ export type StateType = {
   currPage: number
   filters: filtersType
   genres: GenreType[]
+  isLoadingAnime: boolean
+  isLoadingGenres: boolean
+  isAnimeError: boolean
+  isGenresError: boolean
 }
 
 type GenreType = { label: string; key: number }
@@ -44,9 +50,30 @@ type filtersType = {
 
 export type filterCategory = 'rating' | 'genres'
 
-type UpdateAnimeActionType = {
-  type: typeof actionTypes.UPDATE_ANIME_LIST
+type fetchAnimeRequestActionType = {
+  type: typeof actionTypes.FETCH_ANIME_REQUEST
+}
+
+type fetchAnimeSuccessActionType = {
+  type: typeof actionTypes.FETCH_ANIME_SUCCESS
   payload: CardDataType[]
+}
+
+type fetchAnimeFailureActionType = {
+  type: typeof actionTypes.FETCH_ANIME_FAILURE
+}
+
+type fetchGenresRequestActionType = {
+  type: typeof actionTypes.FETCH_GENRES_REQUEST
+}
+
+type fetchGenresSuccessActionType = {
+  type: typeof actionTypes.FETCH_GENRES_SUCCESS
+  payload: GenreType[]
+}
+
+type fetchGenresFailureActionType = {
+  type: typeof actionTypes.FETCH_GENRES_FAILURE
 }
 
 type MonoGenreActionType = {
@@ -59,20 +86,23 @@ type MonoRatingActionType = {
   payload: filtersType
 }
 
-type UpdateGenresActionType = {
-  type: typeof actionTypes.UPDATE_GENRES_LIST
-  payload: GenreType[]
-}
-
 type ClearFiltersActionType = {
   type: typeof actionTypes.CLEAR_FILTERS
 }
 
 export type ActionType =
-  | UpdateAnimeActionType
+  | fetchAnimeRequestActionType
+  | fetchAnimeSuccessActionType
+  | fetchAnimeFailureActionType
+  | fetchGenresRequestActionType
+  | fetchGenresSuccessActionType
+  | fetchGenresFailureActionType
   | MonoGenreActionType
   | MonoRatingActionType
-  | UpdateGenresActionType
   | ClearFiltersActionType
 
-export type DispatchType = (args: ActionType) => ActionType
+// export type DispatchType = (args: ActionType) => ActionType
+export type DispatchType = Dispatch<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ActionType | ThunkAction<any, any, any, any>
+>

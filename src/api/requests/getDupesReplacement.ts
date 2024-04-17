@@ -1,23 +1,27 @@
 import { AnimeBaseResponseType } from '../../types'
-import requestAnimeData from './requestAnimeData'
+import getAnimeData from './getAnimeData'
 
-async function requestDupesReplacement(
-  arr: AnimeBaseResponseType[],
+async function getDupesReplacement(
+  arr: AnimeBaseResponseType[] | void,
   url: string,
   page: number,
   iPerPage: number,
 ) {
-  const newArr: AnimeBaseResponseType[] = arr.slice(0)
+  let newArr: AnimeBaseResponseType[]
+  if (arr instanceof Array) {
+    newArr = arr.slice(0)
+  } else {
+    newArr = []
+  }
   let currPage = page
   while (newArr.length < iPerPage) {
     currPage += 1
     const diff = iPerPage - newArr.length
     const newUrl = url + `&page=${currPage}`
-    const extraData = await requestAnimeData(newUrl)
-
+    const extraData = await getAnimeData(newUrl)
     newArr.concat(extraData.slice(0, diff))
   }
   return newArr
 }
 
-export default requestDupesReplacement
+export default getDupesReplacement
