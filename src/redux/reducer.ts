@@ -20,6 +20,8 @@ const initialCards: AnimeCardType[] = [
 const initialState: StateType = {
   animeList: initialCards,
   currPage: 1,
+  filters: { rating: [], genres: [] },
+  genres: [],
 }
 
 const reducer = (
@@ -29,6 +31,14 @@ const reducer = (
   switch (action.type) {
     case actionTypes.UPDATE_ANIME_LIST:
       return { ...state, animeList: action.payload }
+    case actionTypes.SET_MONO_RATING:
+      return { ...state, filters: action.payload }
+    case actionTypes.SET_MONO_GENRE:
+      return { ...state, filters: action.payload }
+    case actionTypes.UPDATE_GENRES_LIST:
+      return { ...state, genres: action.payload }
+    case actionTypes.CLEAR_FILTERS:
+      return { ...state, filters: { rating: [], genres: [] } }
     default:
       return initialState
   }
