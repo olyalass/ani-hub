@@ -1,5 +1,5 @@
 function determineCardsAmountByViewport() {
-  if (window.matchMedia('(min-width: 1735px)').matches) {
+  if (window.matchMedia('(min-width: 1767px)').matches) {
     return 14
   } else if (window.matchMedia('(min-width: 1519px)').matches) {
     return 12

@@ -1,4 +1,9 @@
-import { StateType, ActionType, AnimeCardType } from '../types'
+import {
+  StateType,
+  ActionType,
+  AnimeCardType,
+  AnimePageDataType,
+} from '../types'
 import * as actionTypes from './actionTypes'
 
 const initialCards: AnimeCardType[] = [
@@ -17,15 +22,48 @@ const initialCards: AnimeCardType[] = [
   },
 ]
 
+const initialAnimePage: AnimePageDataType = {
+  cardTitle: 'Attack on Titan',
+  japTitle: 'Shingeki no Kyojin',
+  rating: 'R - 17+ (violence & profanity)',
+  genres: [
+    { label: 'Action', key: 1 },
+    { label: 'Award Winning', key: 46 },
+    { label: 'Drama', key: 8 },
+    { label: 'Suspense', key: 41 },
+  ],
+
+  id: 16498,
+  img: 'https://cdn.myanimelist.net/images/anime/10/47347l.jpg',
+  episodes: 25,
+  year: 2013,
+  synopsis:
+    'Centuries ago, mankind was slaughtered to near extinction by monstrous humanoid creatures called Titans, forcing humans to hide in fea…',
+  status: 'Finished Airing',
+  score: 8.54,
+  producers: [
+    'Production I.G',
+    'Dentsu',
+    'Mainichi Broadcasting System',
+    'Pony Canyon',
+    'Kodansha',
+    'Pony Canyon Enterprises',
+  ],
+}
+
 const initialState: StateType = {
   animeList: initialCards,
   currPage: 1,
   filters: { rating: [], genres: [] },
   genres: [],
+  animePageData: initialAnimePage,
   isLoadingAnime: false,
   isLoadingGenres: false,
+  isLoadingAnimePage: false,
   isAnimeError: false,
   isGenresError: false,
+  isAnimePageError: false,
+  isEmptyPage: false,
 }
 
 const reducer = (
@@ -45,6 +83,28 @@ const reducer = (
       return { ...state, isLoadingGenres: false, genres: action.payload }
     case actionTypes.FETCH_GENRES_FAILURE:
       return { ...state, isLoadingGenres: false, isGenresError: true }
+    case actionTypes.FETCH_ANIME_PAGE_REQUEST:
+      return {
+        ...state,
+        isLoadingAnimePage: true,
+        isAnimePageError: false,
+        isEmptyPage: false,
+      }
+    case actionTypes.FETCH_ANIME_PAGE_SUCCESS:
+      return {
+        ...state,
+        isLoadingAnimePage: false,
+        animePageData: action.payload,
+      }
+    case actionTypes.FETCH_ANIME_PAGE_FAILURE:
+      return { ...state, isLoadingAnimePage: false, isAnimePageError: true }
+    case actionTypes.FETCH_ANIME_PAGE_EMPTY:
+      return {
+        ...state,
+        isLoadingAnimePage: false,
+        isAnimePageError: false,
+        isEmptyPage: true,
+      }
     case actionTypes.SET_MONO_RATING:
       return { ...state, filters: action.payload }
     case actionTypes.SET_MONO_GENRE:

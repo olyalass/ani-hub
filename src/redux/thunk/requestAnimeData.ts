@@ -12,8 +12,8 @@ import { StateType, ActionType } from '../../types'
 
 function requestAnimeData(
   url: string,
-  page: number,
-  itemsPerPage: number,
+  page: number = 1,
+  itemsPerPage: number = 1,
 ): ThunkAction<void, StateType, unknown, ActionType> {
   return async (dispatch: Dispatch) => {
     dispatch(fetchAnimeRequest())
