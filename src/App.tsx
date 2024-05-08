@@ -15,16 +15,14 @@ import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Dispatch } from 'redux'
 
 import './App.css'
 import Home from './components/Home'
 import { getAppStyleUpgrades } from './antdStyleUpgrades'
-import { updateGenresList } from './redux/actionCreators'
 import HomeMenu from './components/Sider/HomeMenu'
-import requestGenres from './api/requests/requestGenres'
-import parseGenre from './api/parsers/parseGenre'
+import requestGenres from './redux/thunk/requestGenres'
 import ThemeContext from './shared/ThemeContext'
+import { DispatchType } from './types'
 
 const navItems = [
   { key: '/', label: <Link to="/">Home</Link> },
@@ -39,12 +37,10 @@ const isSystemThemeLight = window.matchMedia(
 
 function App() {
   const [isLightTheme, setIsLightTheme] = useState(isSystemThemeLight)
-  const dispatch: Dispatch = useDispatch()
+  const dispatch: DispatchType = useDispatch()
 
   useEffect(() => {
-    requestGenres().then((genres) =>
-      dispatch(updateGenresList(genres.map(parseGenre))),
-    )
+    dispatch(requestGenres())
   }, [dispatch])
 
   return (

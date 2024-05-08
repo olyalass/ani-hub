@@ -1,20 +1,16 @@
 import {
   AnimeCardType,
   ClearFiltersActionType,
-  GenreType,
   MonoGenreActionType,
   MonoRatingActionType,
-  UpdateAnimeActionType,
-  UpdateGenresActionType,
+  fetchAnimeSuccessActionType,
+  fetchAnimeFailureActionType,
+  fetchAnimeRequestActionType,
+  fetchGenresRequestActionType,
+  fetchGenresSuccessActionType,
+  GenreType,
 } from '../types'
 import * as actionTypes from './actionTypes'
-
-export const updateAnimeList = (
-  animeData: AnimeCardType[],
-): UpdateAnimeActionType => ({
-  type: actionTypes.UPDATE_ANIME_LIST,
-  payload: animeData,
-})
 
 export const setMonoRating = (rating: string): MonoRatingActionType => ({
   type: actionTypes.SET_MONO_RATING,
@@ -30,9 +26,44 @@ export const clearFilters = (): ClearFiltersActionType => ({
   type: actionTypes.CLEAR_FILTERS,
 })
 
-export const updateGenresList = (
-  genres: GenreType[],
-): UpdateGenresActionType => ({
-  type: actionTypes.UPDATE_GENRES_LIST,
-  payload: genres,
-})
+export const fetchAnimeRequest = (): fetchAnimeRequestActionType => {
+  return {
+    type: actionTypes.FETCH_ANIME_REQUEST,
+  }
+}
+
+export const fetchAnimeSuccess = (
+  data: AnimeCardType[],
+): fetchAnimeSuccessActionType => {
+  return {
+    type: actionTypes.FETCH_ANIME_SUCCESS,
+    payload: data,
+  }
+}
+
+export const fetchAnimeFailure = (): fetchAnimeFailureActionType => {
+  return {
+    type: actionTypes.FETCH_ANIME_FAILURE,
+  }
+}
+
+export const fetchGenresRequest = (): fetchGenresRequestActionType => {
+  return {
+    type: actionTypes.FETCH_GENRES_REQUEST,
+  }
+}
+
+export const fetchGenresSuccess = (
+  data: GenreType[],
+): fetchGenresSuccessActionType => {
+  return {
+    type: actionTypes.FETCH_GENRES_SUCCESS,
+    payload: data,
+  }
+}
+
+export const fetchGenresFailure = () => {
+  return {
+    type: actionTypes.FETCH_GENRES_FAILURE,
+  }
+}

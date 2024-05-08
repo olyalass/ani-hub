@@ -1,21 +1,24 @@
 import { Flex } from 'antd'
 import { useEffect, useState } from 'react'
-import { Dispatch } from 'redux'
 import { useDispatch, useSelector } from 'react-redux'
 
 import AnimeCard from './AnimeCard'
-import { AnimeCardType, StateType } from '../types'
-import { clearFilters, updateAnimeList } from '../redux/actionCreators'
-import parseAnimeResponseItem from '../api/parsers/parseAnimeResponseItem'
+import { AnimeCardType, StateType, DispatchType } from '../types'
+import { clearFilters } from '../redux/actionCreators'
 import determineCardsAmountByViewport from '../utils/determineCardsAmountByViewport'
-import requestAnimeData from '../api/requests/requestAnimeData'
-import requestDupesReplacement from '../api/requests/requestDupesReplacement'
+import requestAnimeData from '../redux/thunk/requestAnimeData'
+import AnimeError from './Errors/AnimeError'
+import AnimeLoading from './Loadings/AnimeLoading'
 
 function Home() {
-  const [cardsAmount, setCardsAmount] = useState(14)
-  const dispatch: Dispatch = useDispatch()
+  const [cardsAmount, setCardsAmount] = useState(
+    determineCardsAmountByViewport(),
+  )
+  const dispatch: DispatchType = useDispatch()
   const cards = useSelector((state: StateType) => state.animeList)
   const filters = useSelector((state: StateType) => state.filters)
+  const isLoading = useSelector((state: StateType) => state.isLoadingAnime)
+  const isError = useSelector((state: StateType) => state.isAnimeError)
 
   useEffect(() => {
     function handleResize() {
@@ -42,18 +45,20 @@ function Home() {
       filterQuery = filterQuery + ratingQuery
     }
     const url = baseUrl + filterQuery
-    requestAnimeData(url)
-      .then((data) => requestDupesReplacement(data, url, 1, cardsAmount))
-      .then((data) =>
-        dispatch(updateAnimeList(data.map(parseAnimeResponseItem))),
-      )
+    dispatch(requestAnimeData(url, 1, cardsAmount))
   }, [cardsAmount, dispatch, filters])
 
   return (
-    <Flex wrap="wrap" justify="space-between" align="center" gap="middle">
-      {cards.map((cardData: AnimeCardType) => {
-        return <AnimeCard key={cardData.id} cardData={cardData} />
-      })}
+    <Flex wrap="wrap" justify="center" align="center" gap="middle">
+      {isLoading ? (
+        <AnimeLoading />
+      ) : isError ? (
+        <AnimeError />
+      ) : (
+        cards.map((cardData: AnimeCardType) => {
+          return <AnimeCard key={cardData.id} cardData={cardData} />
+        })
+      )}
     </Flex>
   )
 }

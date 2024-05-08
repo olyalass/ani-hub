@@ -22,6 +22,10 @@ const initialState: StateType = {
   currPage: 1,
   filters: { rating: [], genres: [] },
   genres: [],
+  isLoadingAnime: false,
+  isLoadingGenres: false,
+  isAnimeError: false,
+  isGenresError: false,
 }
 
 const reducer = (
@@ -29,14 +33,22 @@ const reducer = (
   action: ActionType,
 ): StateType => {
   switch (action.type) {
-    case actionTypes.UPDATE_ANIME_LIST:
-      return { ...state, animeList: action.payload }
+    case actionTypes.FETCH_ANIME_REQUEST:
+      return { ...state, isLoadingAnime: true, isAnimeError: false }
+    case actionTypes.FETCH_ANIME_SUCCESS:
+      return { ...state, isLoadingAnime: false, animeList: action.payload }
+    case actionTypes.FETCH_ANIME_FAILURE:
+      return { ...state, isLoadingAnime: false, isAnimeError: true }
+    case actionTypes.FETCH_GENRES_REQUEST:
+      return { ...state, isLoadingGenres: true, isGenresError: false }
+    case actionTypes.FETCH_GENRES_SUCCESS:
+      return { ...state, isLoadingGenres: false, genres: action.payload }
+    case actionTypes.FETCH_GENRES_FAILURE:
+      return { ...state, isLoadingGenres: false, isGenresError: true }
     case actionTypes.SET_MONO_RATING:
       return { ...state, filters: action.payload }
     case actionTypes.SET_MONO_GENRE:
       return { ...state, filters: action.payload }
-    case actionTypes.UPDATE_GENRES_LIST:
-      return { ...state, genres: action.payload }
     case actionTypes.CLEAR_FILTERS:
       return { ...state, filters: { rating: [], genres: [] } }
     default:
