@@ -2,14 +2,14 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
-import { DispatchType, StateType } from '../types'
-import createGetAnimeUrl from '../utils/createGetAnimeUrl'
-import requestAnimePageData from '../redux/thunk/requestAnimePageData'
-import ContentLoading from './Loadings/ContentLoading'
-import ContentError from './Errors/ContentError'
-import AnimeBigCard from './AnimeBigCard'
-import CaseComponent from './CaseComponent'
-import ContentEmpty from './Errors/ContentEmpty'
+import { DispatchType, StateType } from '../../types'
+import createGetAnimeUrl from '../../utils/createGetAnimeUrl'
+import requestAnimePageData from '../../redux/thunk/requestAnimePageData'
+import ContentLoading from '../Loadings/ContentLoading'
+import ContentError from '../Errors/ContentError'
+import AnimeBigCard from '../Content/AnimeBigCard'
+import CaseComponent from '../ContentPieces/CaseComponent'
+import ContentEmpty from '../Errors/ContentEmpty'
 
 function AnimeByIdPage() {
   const params = useParams()
