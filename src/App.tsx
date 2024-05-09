@@ -1,16 +1,6 @@
 import { Content, Header } from 'antd/es/layout/layout'
 import { SunOutlined, MoonOutlined } from '@ant-design/icons'
-import {
-  ConfigProvider,
-  Layout,
-  Input,
-  Typography,
-  Space,
-  Menu,
-  Flex,
-  Switch,
-} from 'antd'
-import Sider from 'antd/es/layout/Sider'
+import { ConfigProvider, Layout, Input, Space, Menu, Flex, Switch } from 'antd'
 import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -23,6 +13,10 @@ import HomeMenu from './components/Sider/HomeMenu'
 import requestGenres from './redux/thunk/requestGenres'
 import ThemeContext from './shared/ThemeContext'
 import { DispatchType } from './types'
+import Search from './components/Search'
+import SearchForm from './components/Sider/SearchForm'
+import RandomAnimePage from './components/RandomAnimePage'
+import AnimeByIdPage from './components/AnimeByIdPage'
 
 const navItems = [
   { key: '/', label: <Link to="/">Home</Link> },
@@ -61,17 +55,9 @@ function App() {
                 rowGap: '20px',
               }}
             >
-              <Typography.Title
-                style={{
-                  marginTop: '0px',
-                  marginBottom: '0px',
-                  marginRight: '50px',
-                  color: 'rgba(255, 255, 255, 0.65)',
-                  cursor: 'default',
-                }}
-              >
-                Anime Universe
-              </Typography.Title>
+              <Link to="/">
+                <h1 className="app-title">Anime Universe</h1>
+              </Link>
               <Flex
                 align="center"
                 style={{
@@ -94,14 +80,16 @@ function App() {
             </Flex>
           </Header>
           <Layout>
-            <Sider theme={isLightTheme ? 'light' : 'dark'}>
-              <Routes>
-                <Route path="/" element={<HomeMenu />} />
-              </Routes>
-            </Sider>
-            <Content style={{ padding: '30px 20px 0' }}>
+            <Routes>
+              <Route path="/" element={<HomeMenu />} />
+              <Route path="/search" element={<SearchForm />} />
+            </Routes>
+            <Content style={{ padding: '2vh 2vw' }}>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/random" element={<RandomAnimePage />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/:id" element={<AnimeByIdPage />} />
               </Routes>
             </Content>
           </Layout>

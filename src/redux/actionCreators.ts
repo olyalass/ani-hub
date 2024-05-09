@@ -3,12 +3,18 @@ import {
   ClearFiltersActionType,
   MonoGenreActionType,
   MonoRatingActionType,
-  fetchAnimeSuccessActionType,
-  fetchAnimeFailureActionType,
-  fetchAnimeRequestActionType,
-  fetchGenresRequestActionType,
-  fetchGenresSuccessActionType,
+  FetchAnimeSuccessActionType,
+  FetchAnimeFailureActionType,
+  FetchAnimeRequestActionType,
+  FetchGenresRequestActionType,
+  FetchGenresSuccessActionType,
+  FetchGenresFailureActionType,
   GenreType,
+  AnimePageDataType,
+  FetchAnimePageRequestActionType,
+  FetchAnimePageSuccessActionType,
+  FetchAnimePageFailureActionType,
+  FetchAnimePageEmptyActionType,
 } from '../types'
 import * as actionTypes from './actionTypes'
 
@@ -26,7 +32,7 @@ export const clearFilters = (): ClearFiltersActionType => ({
   type: actionTypes.CLEAR_FILTERS,
 })
 
-export const fetchAnimeRequest = (): fetchAnimeRequestActionType => {
+export const fetchAnimeRequest = (): FetchAnimeRequestActionType => {
   return {
     type: actionTypes.FETCH_ANIME_REQUEST,
   }
@@ -34,20 +40,20 @@ export const fetchAnimeRequest = (): fetchAnimeRequestActionType => {
 
 export const fetchAnimeSuccess = (
   data: AnimeCardType[],
-): fetchAnimeSuccessActionType => {
+): FetchAnimeSuccessActionType => {
   return {
     type: actionTypes.FETCH_ANIME_SUCCESS,
     payload: data,
   }
 }
 
-export const fetchAnimeFailure = (): fetchAnimeFailureActionType => {
+export const fetchAnimeFailure = (): FetchAnimeFailureActionType => {
   return {
     type: actionTypes.FETCH_ANIME_FAILURE,
   }
 }
 
-export const fetchGenresRequest = (): fetchGenresRequestActionType => {
+export const fetchGenresRequest = (): FetchGenresRequestActionType => {
   return {
     type: actionTypes.FETCH_GENRES_REQUEST,
   }
@@ -55,15 +61,42 @@ export const fetchGenresRequest = (): fetchGenresRequestActionType => {
 
 export const fetchGenresSuccess = (
   data: GenreType[],
-): fetchGenresSuccessActionType => {
+): FetchGenresSuccessActionType => {
   return {
     type: actionTypes.FETCH_GENRES_SUCCESS,
     payload: data,
   }
 }
 
-export const fetchGenresFailure = () => {
+export const fetchGenresFailure = (): FetchGenresFailureActionType => {
   return {
     type: actionTypes.FETCH_GENRES_FAILURE,
+  }
+}
+
+export const fetchAnimePageRequest = (): FetchAnimePageRequestActionType => {
+  return {
+    type: actionTypes.FETCH_ANIME_PAGE_REQUEST,
+  }
+}
+
+export const fetchAnimePageSuccess = (
+  data: AnimePageDataType,
+): FetchAnimePageSuccessActionType => {
+  return {
+    type: actionTypes.FETCH_ANIME_PAGE_SUCCESS,
+    payload: data,
+  }
+}
+
+export const fetchAnimePageFailure = (): FetchAnimePageFailureActionType => {
+  return {
+    type: actionTypes.FETCH_ANIME_PAGE_FAILURE,
+  }
+}
+
+export const fetchAnimePageEmpty = (): FetchAnimePageEmptyActionType => {
+  return {
+    type: actionTypes.FETCH_ANIME_PAGE_EMPTY,
   }
 }

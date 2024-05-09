@@ -1,0 +1,85 @@
+.icon {
+  font-size: 40px;
+  color: #d29ada;
+}
+
+.icon-message {
+  color: #d29ada;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 47vh;
+}
+
+.app-title {
+  margin: 0 50px 0 0;
+  color: rgba(255, 255, 255, 0.65);
+  cursor: default;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.anime-big-card {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: start;
+  padding: 3vw;
+  border: 2px solid #d29ada;
+  border-radius: 10px;
+  min-width: 60vw;
+  max-width: 70vw;
+}
+
+.anime-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.descriptions {
+  max-width: 60%;
+}
+
+.random-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  min-height: calc(100vh - 4vh - 64px);
+}
+
+.page-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 4vh - 64px);
+}
+
+.random-button {
+  border-color: #d29ada;
+  color: #d29ada;
+}
+
+@media (max-width: 1400px) {
+  .anime-big-card {
+    align-items: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .anime-big-card {
+    flex-direction: column;
+  }
+
+  .descriptions {
+    max-width: 80%;
+  }
+}
