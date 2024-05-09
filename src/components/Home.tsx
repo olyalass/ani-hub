@@ -9,7 +9,7 @@ import determineCardsAmountByViewport from '../utils/determineCardsAmountByViewp
 import requestAnimeData from '../redux/thunk/requestAnimeData'
 import ContentError from './Errors/ContentError'
 import ContentLoading from './Loadings/ContentLoading'
-import getUrl from '../utils/getUrl'
+import createGetAnimeUrl from '../utils/createGetAnimeUrl'
 import CaseComponent from './CaseComponent'
 import ContentEmpty from './Errors/ContentEmpty'
 
@@ -37,7 +37,7 @@ function Home() {
   }, [dispatch])
 
   useEffect(() => {
-    const url = getUrl('top', filters, cardsAmount)
+    const url = createGetAnimeUrl('top', filters, cardsAmount)
     dispatch(requestAnimeData(url, 1, cardsAmount))
   }, [cardsAmount, dispatch, filters])
 

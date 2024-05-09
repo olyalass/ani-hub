@@ -13,7 +13,7 @@ import CaseComponent from './CaseComponent'
 import { fetchAnimePageRequest } from '../redux/actionCreators'
 import ContentEmpty from './Errors/ContentEmpty'
 
-function RandomPage() {
+function RandomAnimePage() {
   const dispatch: DispatchType = useDispatch()
   const isLoading = useSelector((state: StateType) => state.isLoadingAnimePage)
   const isError = useSelector((state: StateType) => state.isAnimePageError)
@@ -30,26 +30,24 @@ function RandomPage() {
     (state: StateType) => state.animePageData,
   )
 
-  const errorElement = (
-    <ContentError>
-      <Button
-        className="random-button"
-        onClick={() => {
-          dispatch(requestRandomPageData())
-        }}
-      >
-        Try again
-      </Button>
-    </ContentError>
-  )
-
   return (
     <div className="random-container">
       <CaseComponent
         isError={isError}
         isLoading={isLoading}
         isEmpty={isEmpty}
-        errorElement={errorElement}
+        errorElement={
+          <ContentError>
+            <Button
+              className="random-button"
+              onClick={() => {
+                dispatch(requestRandomPageData())
+              }}
+            >
+              Try again
+            </Button>
+          </ContentError>
+        }
         loadingElement={<ContentLoading />}
         emptyElement={<ContentEmpty type="byId" />}
       >
@@ -67,4 +65,4 @@ function RandomPage() {
   )
 }
 
-export default RandomPage
+export default RandomAnimePage

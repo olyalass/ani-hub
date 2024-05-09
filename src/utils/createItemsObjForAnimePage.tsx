@@ -1,12 +1,9 @@
-import { Badge, Button } from 'antd'
-import { Link } from 'react-router-dom'
-
 import { AnimePageDataType } from '../types'
-import getStatusForBadge from './getStatusForBadge'
+import { ReactNode } from 'react'
 
 function createItemsObjForAnimePage(
   data: AnimePageDataType,
-  buttonOnClick: (genreKey: string) => void,
+  nodeChildrenObj: { rating: ReactNode; genres: ReactNode },
 ) {
   return [
     {
@@ -30,9 +27,7 @@ function createItemsObjForAnimePage(
     {
       key: 'rating',
       label: 'Rating',
-      children: (
-        <Badge status={getStatusForBadge(data.rating)} text={data.rating} />
-      ),
+      children: nodeChildrenObj.rating,
       span: { md: 2, lg: 2, xl: 1, xxl: 1 },
     },
     {
@@ -44,18 +39,7 @@ function createItemsObjForAnimePage(
     {
       key: 'genres',
       label: 'Genres',
-      children: data.genres.map((genre) => (
-        <Link key={genre.key} to="/search">
-          <Button
-            key={genre.key}
-            onClick={() => {
-              buttonOnClick(genre.key.toString())
-            }}
-          >
-            {genre.label}
-          </Button>
-        </Link>
-      )),
+      children: nodeChildrenObj.genres,
       span: { md: 2, lg: 2, xl: 2, xxl: 3 },
     },
     {

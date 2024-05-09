@@ -15,8 +15,8 @@ import ThemeContext from './shared/ThemeContext'
 import { DispatchType } from './types'
 import Search from './components/Search'
 import SearchForm from './components/Sider/SearchForm'
-import RandomPage from './components/RandomPage'
-import IdPage from './components/IdPage'
+import RandomAnimePage from './components/RandomAnimePage'
+import AnimeByIdPage from './components/AnimeByIdPage'
 
 const navItems = [
   { key: '/', label: <Link to="/">Home</Link> },
@@ -55,7 +55,9 @@ function App() {
                 rowGap: '20px',
               }}
             >
-              <h1 className="app-title">Anime Universe</h1>
+              <Link to="/">
+                <h1 className="app-title">Anime Universe</h1>
+              </Link>
               <Flex
                 align="center"
                 style={{
@@ -85,9 +87,9 @@ function App() {
             <Content style={{ padding: '2vh 2vw' }}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/random" element={<RandomPage />} />
+                <Route path="/random" element={<RandomAnimePage />} />
                 <Route path="/search" element={<Search />} />
-                <Route path="/:id" element={<IdPage />} />
+                <Route path="/:id" element={<AnimeByIdPage />} />
               </Routes>
             </Content>
           </Layout>

@@ -1,4 +1,4 @@
-import { ReactNode, FC, PropsWithChildren } from 'react'
+import { ReactNode } from 'react'
 
 type Props = {
   isError: boolean
@@ -10,7 +10,7 @@ type Props = {
   children: ReactNode
 }
 
-const CaseComponent: FC<PropsWithChildren<Props>> = ({
+function CaseComponent({
   isError,
   isLoading,
   isEmpty,
@@ -18,7 +18,7 @@ const CaseComponent: FC<PropsWithChildren<Props>> = ({
   loadingElement,
   emptyElement,
   children,
-}: Props) => {
+}: Props): ReactNode {
   if (isEmpty) {
     return emptyElement
   }

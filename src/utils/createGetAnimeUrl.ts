@@ -6,15 +6,13 @@ const baseTopUrl =
 const altTopUrl =
   'https://corsproxy.io/?https://api.jikan.moe/v4/anime?sfw&order_by=popularity&limit='
 
-// const randomUrl = 'https://corsproxy.io/?https://api.jikan.moe/v4/random/anime'
-
 const baseSearchUrl =
   'https://corsproxy.io/?https://api.jikan.moe/v4/anime?limit='
 
 const baseIdUrl = 'https://corsproxy.io/?https://api.jikan.moe/v4/anime/'
 
-function getUrl(
-  type: 'top' | 'random' | 'search' | 'byId',
+function createGetAnimeUrl(
+  type: 'top' | 'search' | 'byId',
   filters?: FiltersType,
   limit: number = 1,
   q?: string,
@@ -25,8 +23,6 @@ function getUrl(
     case 'top':
       baseUrl = baseTopUrl + limit
       break
-    case 'random':
-      return baseIdUrl + Math.floor(Math.random() * 100000)
     case 'search':
       baseUrl = baseSearchUrl + limit
       break
@@ -57,4 +53,4 @@ function getUrl(
   return url
 }
 
-export default getUrl
+export default createGetAnimeUrl

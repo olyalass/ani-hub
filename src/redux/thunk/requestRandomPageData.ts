@@ -7,13 +7,13 @@ import {
   fetchAnimePageSuccess,
 } from '../actionCreators'
 import getAnimeData from '../../api/requests/getAnimeData'
-import getUrl from '../../utils/getUrl'
+import createGetAnimeUrl from '../../utils/createGetAnimeUrl'
 
 function requestRandomPageData() {
   const makeRequest = async (dispatch: Dispatch) => {
     dispatch(fetchAnimePageRequest())
     try {
-      const url = getUrl('top')
+      const url = createGetAnimeUrl('top')
       const response = await fetch(url)
       const data: {
         pagination: { last_visible_page: number }

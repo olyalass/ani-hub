@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
 import { DispatchType, StateType } from '../types'
-import getUrl from '../utils/getUrl'
+import createGetAnimeUrl from '../utils/createGetAnimeUrl'
 import requestAnimePageData from '../redux/thunk/requestAnimePageData'
 import ContentLoading from './Loadings/ContentLoading'
 import ContentError from './Errors/ContentError'
@@ -11,7 +11,7 @@ import AnimeBigCard from './AnimeBigCard'
 import CaseComponent from './CaseComponent'
 import ContentEmpty from './Errors/ContentEmpty'
 
-function IdPage() {
+function AnimeByIdPage() {
   const params = useParams()
   const id = Number(params.id)
   const dispatch: DispatchType = useDispatch()
@@ -21,7 +21,7 @@ function IdPage() {
   const isEmpty = useSelector((state: StateType) => state.isEmptyPage)
 
   useEffect(() => {
-    const url = getUrl('byId', undefined, undefined, undefined, id)
+    const url = createGetAnimeUrl('byId', undefined, undefined, undefined, id)
     dispatch(requestAnimePageData(url))
   }, [dispatch, id])
 
@@ -41,4 +41,4 @@ function IdPage() {
   )
 }
 
-export default IdPage
+export default AnimeByIdPage

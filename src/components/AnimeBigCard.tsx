@@ -1,4 +1,5 @@
-import { Badge, ConfigProvider, Descriptions, Image } from 'antd'
+import { Badge, ConfigProvider, Descriptions, Image, Button } from 'antd'
+import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useContext } from 'react'
 
@@ -11,8 +12,22 @@ import getStatusForBadge from '../utils/getStatusForBadge'
 function AnimeBigCard({ data }: { data: AnimePageDataType }) {
   const dispatch = useDispatch()
   const isLightTheme = useContext(ThemeContext)
-  const items = createItemsObjForAnimePage(data, (genreKey: string) => {
-    dispatch(setMonoGenre(genreKey))
+  const items = createItemsObjForAnimePage(data, {
+    rating: (
+      <Badge status={getStatusForBadge(data.rating)} text={data.rating} />
+    ),
+    genres: data.genres.map((genre) => (
+      <Link key={genre.key} to="/search">
+        <Button
+          key={genre.key}
+          onClick={() => {
+            dispatch(setMonoGenre(genre.key.toString()))
+          }}
+        >
+          {genre.label}
+        </Button>
+      </Link>
+    )),
   })
 
   return (
