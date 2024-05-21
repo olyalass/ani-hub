@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux'
+
 import parseAnimePageResponse from '../../api/parsers/parseAnimePageResponse'
 import { AnimeBaseResponseType } from '../../types'
 import {

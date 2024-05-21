@@ -1,19 +1,21 @@
 import { Dispatch } from 'redux'
+
 import parseAnimePageResponse from '../../api/parsers/parseAnimePageResponse'
 import { AnimeBaseResponseType } from '../../types'
 import {
+  fetchAnimePageEmpty,
   fetchAnimePageFailure,
   fetchAnimePageRequest,
   fetchAnimePageSuccess,
 } from '../actionCreators'
 import getAnimeData from '../../api/requests/getAnimeData'
-import createGetAnimeUrl from '../../utils/createGetAnimeUrl'
+import createGetTopAnimeUrl from '../../utils/urlCreators/createGetTopAnimeUrl'
 
 function requestRandomPageData() {
   const makeRequest = async (dispatch: Dispatch) => {
     dispatch(fetchAnimePageRequest())
     try {
-      const url = createGetAnimeUrl('top')
+      const url = createGetTopAnimeUrl()
       const response = await fetch(url)
       const data: {
         pagination: { last_visible_page: number }
@@ -22,9 +24,14 @@ function requestRandomPageData() {
       const totalAnimes = data.pagination.last_visible_page
       const randomPage = Math.floor(Math.random() * totalAnimes)
       const newUrl = url + '&page=' + randomPage
-      const responsePageArray = await getAnimeData(newUrl)
-      const parsedPageData = parseAnimePageResponse(responsePageArray[0])
-      dispatch(fetchAnimePageSuccess(parsedPageData))
+      const responseData = await getAnimeData(newUrl)
+      if (!responseData) {
+        dispatch(fetchAnimePageEmpty())
+      } else {
+        const responsePageArray = responseData.data
+        const parsedPageData = parseAnimePageResponse(responsePageArray[0])
+        dispatch(fetchAnimePageSuccess(parsedPageData))
+      }
     } catch {
       dispatch(fetchAnimePageFailure())
     }

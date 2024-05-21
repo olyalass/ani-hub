@@ -1,6 +1,5 @@
 import { Button } from 'antd'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
 import AnimeBigCard from '../Content/AnimeBigCard'
@@ -18,6 +17,11 @@ function RandomAnimePage() {
   const isLoading = useSelector((state: StateType) => state.isLoadingAnimePage)
   const isError = useSelector((state: StateType) => state.isAnimePageError)
   const isEmpty = useSelector((state: StateType) => state.isEmptyPage)
+  const data: AnimePageDataType = useSelector(
+    (state: StateType) => state.animePageData,
+  )
+  const isSpinnerActive = isLoading || !data
+
   useEffect(() => {
     dispatch(requestRandomPageData())
 
@@ -26,15 +30,11 @@ function RandomAnimePage() {
     }
   }, [dispatch])
 
-  const data: AnimePageDataType = useSelector(
-    (state: StateType) => state.animePageData,
-  )
-
   return (
     <div className="random-container">
       <CaseComponent
         isError={isError}
-        isLoading={isLoading}
+        isSpinnerActive={isSpinnerActive}
         isEmpty={isEmpty}
         errorElement={
           <ContentError>

@@ -10,7 +10,7 @@ import determineCardsAmountByViewport from '../../utils/determineCardsAmountByVi
 import requestAnimeData from '../../redux/thunk/requestAnimeData'
 import ContentError from '../Errors/ContentError'
 import ContentLoading from '../Loadings/ContentLoading'
-import createGetAnimeUrl from '../../utils/createGetAnimeUrl'
+import createGetTopAnimeUrl from '../../utils/urlCreators/createGetTopAnimeUrl'
 import CaseComponent from '../ContentPieces/CaseComponent'
 import ContentEmpty from '../Errors/ContentEmpty'
 
@@ -20,9 +20,10 @@ function HomeContent() {
   const [cardsAmount, setCardsAmount] = useState(initialCardsAmount)
   const dispatch: DispatchType = useDispatch()
   const cards = useSelector((state: StateType) => state.animeList)
-  const filters = useSelector((state: StateType) => state.filters)
+  const filters = useSelector((state: StateType) => state.monoFilter)
   const isLoading = useSelector((state: StateType) => state.isLoadingAnime)
   const isError = useSelector((state: StateType) => state.isAnimeError)
+  const isSpinnerActive = isLoading || !cards
   const isEmpty = false
 
   useEffect(() => {
@@ -38,7 +39,7 @@ function HomeContent() {
   }, [dispatch])
 
   useEffect(() => {
-    const url = createGetAnimeUrl('top', filters, cardsAmount)
+    const url = createGetTopAnimeUrl(filters, cardsAmount)
     dispatch(requestAnimeData(url, 1, cardsAmount))
   }, [cardsAmount, dispatch, filters])
 
@@ -47,15 +48,16 @@ function HomeContent() {
       <Flex wrap="wrap" justify="center" align="center" gap="middle">
         <CaseComponent
           isError={isError}
-          isLoading={isLoading}
+          isSpinnerActive={isSpinnerActive}
           isEmpty={isEmpty}
           errorElement={<ContentError />}
           loadingElement={<ContentLoading />}
           emptyElement={<ContentEmpty type="byFilters" />}
         >
-          {cards.map((cardData: AnimeCardType) => {
-            return <AnimeCard key={cardData.id} cardData={cardData} />
-          })}
+          {cards &&
+            cards.map((cardData: AnimeCardType) => {
+              return <AnimeCard key={cardData.id} cardData={cardData} />
+            })}
         </CaseComponent>
       </Flex>
     </Content>

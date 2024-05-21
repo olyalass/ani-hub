@@ -12,6 +12,9 @@ export function getAppStyleUpgrades(isLightTheme: boolean) {
       colorTextSecondary: isLightTheme
         ? 'rgba(0, 0, 0, 0.75)'
         : 'rgba(255, 255, 255, 0.45)',
+      colorTextPlaceholder: isLightTheme
+        ? 'rgba(0, 0, 0, 0.25)'
+        : 'rgba(220, 186, 224, 0.6)',
       colorText: isLightTheme ? '#000000' : 'rgba(255, 255, 255, 0.65)',
       colorTextHeading: isLightTheme ? '#000' : '#E4DEE4',
       colorTextDescription: isLightTheme ? 'rgba(0, 0, 0, 0.45)' : '#B7A6B3',

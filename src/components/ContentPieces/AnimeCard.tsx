@@ -1,9 +1,12 @@
 import { Card, Tag } from 'antd'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { AnimeCardType } from '../../types'
 import { ratingsMap } from '../../shared/raitings'
 import ThemeContext from '../../shared/ThemeContext'
+import { setGenreToMultiFilters } from '../../redux/actionCreators'
 
 const { Meta } = Card
 
@@ -12,6 +15,7 @@ type Props = {
 }
 
 function AnimeCard({ cardData }: Props) {
+  const dispatch = useDispatch()
   const isLightTheme = useContext(ThemeContext)
   const ratingInfo = ratingsMap[cardData.rating]
   return (
@@ -26,12 +30,14 @@ function AnimeCard({ cardData }: Props) {
         />
       }
     >
-      <Tag
-        color={isLightTheme ? ratingInfo.color : ratingInfo.darkcolor}
-        className="anime-card-tag"
-      >
-        {ratingInfo.shortlabel}
-      </Tag>
+      {ratingInfo && (
+        <Tag
+          color={isLightTheme ? ratingInfo.color : ratingInfo.darkcolor}
+          className="anime-card-tag"
+        >
+          {ratingInfo.shortlabel}
+        </Tag>
+      )}
       <Meta
         title={cardData.titleEnglish}
         description={cardData.titleOrig}
@@ -39,9 +45,17 @@ function AnimeCard({ cardData }: Props) {
       />
       <div className="anime-card-tags-container">
         {cardData.genres.map((genre) => (
-          <Tag color={isLightTheme ? 'magenta' : '#d29ada'} key={genre.id}>
-            {genre.name}
-          </Tag>
+          <Link to="/search" key={genre.id}>
+            <Tag
+              color={isLightTheme ? 'magenta' : '#d29ada'}
+              key={genre.id}
+              onClick={() => {
+                dispatch(setGenreToMultiFilters(genre.id.toString()))
+              }}
+            >
+              {genre.name}
+            </Tag>
+          </Link>
         ))}
       </div>
     </Card>

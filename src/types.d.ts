@@ -53,25 +53,45 @@ export type AnimeCardType = {
 }
 
 export type StateType = {
-  animeList: CardDataType[]
+  animeList: CardDataType[] | null
   currPage: number
-  filters: filtersType
+  monoFilter: MonoFiltersType
   genres: GenreType[]
-  animePageData: AnimePageData
+  multiFilters: SearchFormDataType
+  animePageData: AnimePageData | null
   isLoadingAnime: boolean
   isLoadingGenres: boolean
   isLoadingAnimePage: boolean
   isAnimeError: boolean
   isGenresError: boolean
   isAnimePageError: boolean
+  isAnimeListEmpty: boolean
   isEmptyPage: boolean
+  q: string | null
+  totalPages: number
+}
+
+type FormObjType = {
+  order_by: string
+  isAscending: boolean
+  q: null | string
+  rating: null | string
+  genres: string[]
+  genres_exclude: string[]
+  status: null | string
+}
+
+type DataFormType = {
+  touched: boolean
+  name: string[]
+  value: string
 }
 
 type GenreType = { label: string; key: number }
 
-type FiltersType = {
-  rating: string[]
-  genres: string[]
+type MonoFiltersType = {
+  rating: string | null
+  genre: string | null
 }
 
 export type filterCategory = 'rating' | 'genres'
@@ -87,6 +107,10 @@ type FetchAnimeSuccessActionType = {
 
 type FetchAnimeFailureActionType = {
   type: typeof actionTypes.FETCH_ANIME_FAILURE
+}
+
+type FetchAnimeEmptyActionType = {
+  type: typeof actionTypes.FETCH_ANIME_EMPTY
 }
 
 type FetchGenresRequestActionType = {
@@ -133,10 +157,39 @@ type ClearFiltersActionType = {
   type: typeof actionTypes.CLEAR_FILTERS
 }
 
+type SetQToMultiFiltersActionType = {
+  type: typeof actionTypes.SET_Q_TO_MULTI_FILTERS
+  payload: string
+}
+
+type SetTotalPagesActionType = {
+  type: typeof actionTypes.SET_TOTAL_PAGES
+  payload: number
+}
+
+type ClearTotalPagesActionType = {
+  type: typeof actionTypes.CLEAR_TOTAL_PAGES
+}
+
+type SetMultiFiltersActionType = {
+  type: typeof actionTypes.SET_MULTI_FILTERS
+  payload: SearchFormDataType
+}
+
+type ClearMultiFilterActionType = {
+  type: typeof actionTypes.CLEAR_MULTI_FILTERS
+}
+
+type SetGenreToMultiFiltersActionType = {
+  type: typeof actionTypes.SET_GENRE_TO_MULTI_FILTERS
+  payload: string
+}
+
 export type ActionType =
   | FetchAnimeRequestActionType
   | FetchAnimeSuccessActionType
   | FetchAnimeFailureActionType
+  | FetchAnimeEmptyActionType
   | FetchGenresRequestActionType
   | FetchGenresSuccessActionType
   | FetchGenresFailureActionType
@@ -147,6 +200,12 @@ export type ActionType =
   | MonoGenreActionType
   | MonoRatingActionType
   | ClearFiltersActionType
+  | SetQToMultiFiltersActionType
+  | SetTotalPagesActionType
+  | ClearTotalPagesActionType
+  | SetMultiFiltersActionType
+  | ClearMultiFiltersActionType
+  | SetGenreToMultiFiltersActionType
 
 export type DispatchType = Dispatch<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

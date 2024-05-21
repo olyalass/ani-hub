@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { AnimePageDataType } from '../../types'
-import { setMonoGenre } from '../../redux/actionCreators'
+import { setGenreToMultiFilters } from '../../redux/actionCreators'
 import createItemsObjForAnimePage from '../../utils/createItemsObjForAnimePage'
 import getStatusForBadge from '../../utils/getStatusForBadge'
 
@@ -18,7 +18,7 @@ function AnimeBigCard({ data }: { data: AnimePageDataType }) {
         <Button
           key={genre.key}
           onClick={() => {
-            dispatch(setMonoGenre(genre.key.toString()))
+            dispatch(setGenreToMultiFilters(genre.key.toString()))
           }}
         >
           {genre.label}

@@ -3,6 +3,25 @@
   color: #d29ada;
 }
 
+/* .anticon {
+  color: rgba(220, 186, 224, 0.6);
+} */
+
+.search-sider {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  max-width: 300px;
+  flex-grow: 2;
+  min-height: calc(100vh - 64px);
+  padding: 20px;
+  border-right: 1px solid rgb(141, 133, 133, 0.5);
+}
+
+.search-sider-dark {
+  background-color: #001529;
+  border-right: none;
+}
 .icon-message {
   color: #d29ada;
 }
@@ -45,6 +64,11 @@
 
 .content-container {
   padding: 2vh 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .anime-card {

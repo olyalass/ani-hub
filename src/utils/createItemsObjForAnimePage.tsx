@@ -1,5 +1,6 @@
-import { AnimePageDataType } from '../types'
 import { ReactNode } from 'react'
+
+import { AnimePageDataType } from '../types'
 
 function createItemsObjForAnimePage(
   data: AnimePageDataType,
