@@ -1,23 +1,24 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 
-import { DispatchType, StateType } from '../../types'
+import { DispatchType } from '../../types'
 import requestAnimePageData from '../../redux/thunk/requestAnimePageData'
-import ContentLoading from '../Loadings/ContentLoading'
-import ContentError from '../Errors/ContentError'
-import AnimeBigCard from '../Content/AnimeBigCard'
-import CaseComponent from '../ContentPieces/CaseComponent'
-import ContentEmpty from '../Errors/ContentEmpty'
+import ContentLoading from '../../components/Loadings/ContentLoading'
+import ContentError from '../../components/Errors/ContentError'
+import AnimeBigCard from '../../components/AnimeBigCard'
+import CaseComponent from '../../components/CaseComponent'
+import ContentEmpty from '../../components/Errors/ContentEmpty'
 import createGetIdAnimeUrl from '../../utils/urlCreators/createGetIdAnimeUrl'
+import { useTypedSelector } from '../../utils/hooks/useTypedSelector'
 
 function AnimeByIdPage() {
   const params = useParams()
   const dispatch: DispatchType = useDispatch()
-  const data = useSelector((state: StateType) => state.animePageData)
-  const isLoading = useSelector((state: StateType) => state.isLoadingAnimePage)
-  const isError = useSelector((state: StateType) => state.isAnimePageError)
-  const isEmpty = useSelector((state: StateType) => state.isEmptyPage)
+  const data = useTypedSelector((state) => state.animePageData)
+  const isLoading = useTypedSelector((state) => state.isLoadingAnimePage)
+  const isError = useTypedSelector((state) => state.isAnimePageError)
+  const isEmpty = useTypedSelector((state) => state.isEmptyPage)
   const isSpinnerActive = isLoading || !data
   const id = Number(params.id)
 
@@ -36,7 +37,7 @@ function AnimeByIdPage() {
         loadingElement={<ContentLoading />}
         emptyElement={<ContentEmpty type="byId" />}
       >
-        <AnimeBigCard data={data} />
+        {data && <AnimeBigCard data={data} />}
       </CaseComponent>
     </div>
   )

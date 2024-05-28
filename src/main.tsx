@@ -7,7 +7,8 @@ import { thunk, ThunkMiddleware } from 'redux-thunk'
 
 import App from './App.tsx'
 import './index.css'
-import { ActionType, DispatchType, StateType } from './types'
+import { DispatchType, StateType } from './types'
+import { ActionType } from './redux/actions'
 import reducer from './redux/reducer.ts'
 
 const store: Store<StateType, ActionType> & { dispatch: DispatchType } =

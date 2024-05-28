@@ -1,39 +1,41 @@
 import { Flex } from 'antd'
 import { Content } from 'antd/es/layout/layout'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useCallback, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
-import AnimeCard from '../ContentPieces/AnimeCard'
-import { AnimeCardType, StateType, DispatchType } from '../../types'
+import AnimeCard from '../../components/AnimeCard'
+import { AnimeCardType, DispatchType } from '../../types'
 import { clearFilters } from '../../redux/actionCreators'
 import determineCardsAmountByViewport from '../../utils/determineCardsAmountByViewport'
 import requestAnimeData from '../../redux/thunk/requestAnimeData'
-import ContentError from '../Errors/ContentError'
-import ContentLoading from '../Loadings/ContentLoading'
+import ContentError from '../../components/Errors/ContentError'
+import ContentLoading from '../../components/Loadings/ContentLoading'
 import createGetTopAnimeUrl from '../../utils/urlCreators/createGetTopAnimeUrl'
-import CaseComponent from '../ContentPieces/CaseComponent'
-import ContentEmpty from '../Errors/ContentEmpty'
+import CaseComponent from '../../components/CaseComponent'
+import ContentEmpty from '../../components/Errors/ContentEmpty'
+import usePageResize from '../../utils/hooks/usePageResize'
+import { useTypedSelector } from '../../utils/hooks/useTypedSelector'
 
 const initialCardsAmount = determineCardsAmountByViewport()
 
 function HomeContent() {
   const [cardsAmount, setCardsAmount] = useState(initialCardsAmount)
   const dispatch: DispatchType = useDispatch()
-  const cards = useSelector((state: StateType) => state.animeList)
-  const filters = useSelector((state: StateType) => state.monoFilter)
-  const isLoading = useSelector((state: StateType) => state.isLoadingAnime)
-  const isError = useSelector((state: StateType) => state.isAnimeError)
+  const cards = useTypedSelector((state) => state.animeList)
+  const filters = useTypedSelector((state) => state.monoFilter)
+  const isLoading = useTypedSelector((state) => state.isLoadingAnime)
+  const isError = useTypedSelector((state) => state.isAnimeError)
   const isSpinnerActive = isLoading || !cards
   const isEmpty = false
 
+  const onResize = useCallback(
+    (totalPages: number) => setCardsAmount(totalPages),
+    [],
+  )
+  usePageResize(onResize)
+
   useEffect(() => {
-    function handleResize() {
-      setCardsAmount(determineCardsAmountByViewport())
-    }
-    handleResize()
-    window.addEventListener('resize', handleResize)
     return () => {
-      window.removeEventListener('resize', handleResize)
       dispatch(clearFilters())
     }
   }, [dispatch])

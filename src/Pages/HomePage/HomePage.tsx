@@ -1,5 +1,5 @@
-import HomeMenu from '../Sider/HomeMenu'
-import HomeContent from '../Content/HomeContent'
+import HomeMenu from './HomeMenu'
+import HomeContent from './HomeContent'
 
 function HomePage() {
   return (

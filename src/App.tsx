@@ -7,16 +7,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import './App.css'
-import HomePage from './components/Pages/HomePage'
+import HomePage from './Pages/HomePage/HomePage'
 import { getAppStyleUpgrades } from './antdStyleUpgrades'
 import requestGenres from './redux/thunk/requestGenres'
 import ThemeContext from './shared/ThemeContext'
 import { DispatchType } from './types'
-import SearchPage from './components/Pages/SearchPage'
-import RandomAnimePage from './components/Pages/RandomAnimePage'
-import AnimeByIdPage from './components/Pages/AnimeByIdPage'
-import { setQToMultiFilters } from './redux/actionCreators'
+import SearchPage from './Pages/SearchPage/SearchPage'
+import RandomAnimePage from './Pages/RandomAnimePage/RandomAnimePage'
+import AnimeByIdPage from './Pages/AnimeByIdPage/AnimeByIdPage'
+import { clearMultiFilters, setQToMultiFilters } from './redux/actionCreators'
 import createNavItems from './utils/createNavItems'
+import ListsPage from './Pages/ListsPage/ListsPage'
 
 const isSystemThemeLight = window.matchMedia(
   '(prefers-color-scheme: light)',
@@ -55,12 +56,12 @@ function App() {
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     onSearch={onSearch}
-                  ></Input.Search>
+                  />
                 </Space.Compact>
                 <Menu
                   mode="horizontal"
                   theme="dark"
-                  items={createNavItems(dispatch)}
+                  items={createNavItems(dispatch(clearMultiFilters))}
                   defaultSelectedKeys={[location.pathname]}
                 />
               </div>
@@ -79,6 +80,7 @@ function App() {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/random" element={<RandomAnimePage />} />
               <Route path="/:id" element={<AnimeByIdPage />} />
+              <Route path="/lists" element={<ListsPage />} />
             </Routes>
           </Layout>
         </Layout>

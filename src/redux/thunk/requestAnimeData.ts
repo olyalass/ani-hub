@@ -6,12 +6,12 @@ import {
   fetchAnimeFailure,
   fetchAnimeRequest,
   fetchAnimeSuccess,
-  setTotalPages,
-} from '../actionCreators'
+} from '../thunk/thunkActionCreators'
 import getAnimeData from '../../api/requests/getAnimeData'
 import getDupesReplacement from '../../api/requests/getDupesReplacement'
 import parseAnimeResponseItem from '../../api/parsers/parseAnimeResponseItem'
-import { StateType, ActionType } from '../../types'
+import { StateType } from '../../types'
+import { ActionType } from '../actions'
 
 function requestAnimeData(
   url: string,
@@ -39,8 +39,7 @@ function requestAnimeData(
           uniqueAnimeData = animeData
         }
         const parsedAnimeData = uniqueAnimeData.map(parseAnimeResponseItem)
-        dispatch(fetchAnimeSuccess(parsedAnimeData))
-        dispatch(setTotalPages(totalPages))
+        dispatch(fetchAnimeSuccess(parsedAnimeData, totalPages))
       }
     } catch {
       dispatch(fetchAnimeFailure())

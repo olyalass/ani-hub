@@ -1,5 +1,5 @@
-import SearchForm from '../Sider/SearchForm'
-import SearchContent from '../Content/SearchContent'
+import SearchForm from './SearchForm'
+import SearchContent from './SearchContent'
 
 function SearchPage() {
   return (

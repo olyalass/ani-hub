@@ -1,25 +1,23 @@
 import { Button } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
-import AnimeBigCard from '../Content/AnimeBigCard'
-import { AnimePageDataType, DispatchType } from '../../types'
-import { StateType } from '../../types'
+import AnimeBigCard from '../../components/AnimeBigCard'
+import { DispatchType } from '../../types'
 import requestRandomPageData from '../../redux/thunk/requestRandomPageData'
-import ContentLoading from '../Loadings/ContentLoading'
-import ContentError from '../Errors/ContentError'
-import CaseComponent from '../ContentPieces/CaseComponent'
-import { fetchAnimePageRequest } from '../../redux/actionCreators'
-import ContentEmpty from '../Errors/ContentEmpty'
+import ContentLoading from '../../components/Loadings/ContentLoading'
+import ContentError from '../../components/Errors/ContentError'
+import CaseComponent from '../../components/CaseComponent'
+import { fetchAnimePageRequest } from '../../redux/thunk/thunkActionCreators'
+import ContentEmpty from '../../components/Errors/ContentEmpty'
+import { useTypedSelector } from '../../utils/hooks/useTypedSelector'
 
 function RandomAnimePage() {
   const dispatch: DispatchType = useDispatch()
-  const isLoading = useSelector((state: StateType) => state.isLoadingAnimePage)
-  const isError = useSelector((state: StateType) => state.isAnimePageError)
-  const isEmpty = useSelector((state: StateType) => state.isEmptyPage)
-  const data: AnimePageDataType = useSelector(
-    (state: StateType) => state.animePageData,
-  )
+  const isLoading = useTypedSelector((state) => state.isLoadingAnimePage)
+  const isError = useTypedSelector((state) => state.isAnimePageError)
+  const isEmpty = useTypedSelector((state) => state.isEmptyPage)
+  const data = useTypedSelector((state) => state.animePageData)
   const isSpinnerActive = isLoading || !data
 
   useEffect(() => {
@@ -51,7 +49,7 @@ function RandomAnimePage() {
         loadingElement={<ContentLoading />}
         emptyElement={<ContentEmpty type="byId" />}
       >
-        <AnimeBigCard data={data} />
+        {data && <AnimeBigCard data={data} />}
         <Button
           className="random-button"
           onClick={() => {

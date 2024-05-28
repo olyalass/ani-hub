@@ -2,10 +2,10 @@ import { Badge, Descriptions, Image, Button } from 'antd'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import { AnimePageDataType } from '../../types'
-import { setGenreToMultiFilters } from '../../redux/actionCreators'
-import createItemsObjForAnimePage from '../../utils/createItemsObjForAnimePage'
-import getStatusForBadge from '../../utils/getStatusForBadge'
+import { AnimePageDataType } from '../types'
+import { setGenreToMultiFilters } from '../redux/actionCreators'
+import createItemsObjForAnimePage from '../utils/createItemsObjForAnimePage'
+import getStatusForBadge from '../utils/getStatusForBadge'
 
 function AnimeBigCard({ data }: { data: AnimePageDataType }) {
   const dispatch = useDispatch()

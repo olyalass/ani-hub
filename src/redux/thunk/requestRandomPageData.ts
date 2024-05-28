@@ -7,7 +7,7 @@ import {
   fetchAnimePageFailure,
   fetchAnimePageRequest,
   fetchAnimePageSuccess,
-} from '../actionCreators'
+} from '../thunk/thunkActionCreators'
 import getAnimeData from '../../api/requests/getAnimeData'
 import createGetTopAnimeUrl from '../../utils/urlCreators/createGetTopAnimeUrl'
 

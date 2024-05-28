@@ -7,7 +7,7 @@ import {
   fetchAnimePageFailure,
   fetchAnimePageRequest,
   fetchAnimePageSuccess,
-} from '../actionCreators'
+} from '../thunk/thunkActionCreators'
 import getAnimePageData from '../../api/requests/getAnimePageData'
 
 function requestAnimePageData(url: string) {

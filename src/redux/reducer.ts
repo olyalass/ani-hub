@@ -1,50 +1,6 @@
-import { StateType, ActionType } from '../types'
+import { StateType } from '../types'
+import { ActionType } from './actions'
 import * as actionTypes from './actionTypes'
-
-// const initialCards: AnimeCardType[] = [
-//   {
-//     titleEnglish: 'Attack on Titan',
-//     titleOrig: 'Shingeki no Kyojin',
-//     id: 16498,
-//     genres: [
-//       { name: 'Action', id: 1 },
-//       { name: 'Award Winning', id: 46 },
-//       { name: 'Drama', id: 8 },
-//       { name: 'Suspense', id: 41 },
-//     ],
-//     img: 'https://cdn.myanimelist.net/images/anime/10/47347.jpg',
-//     rating: 'R - 17+ (violence & profanity)',
-//   },
-// ]
-
-// const initialAnimePage: AnimePageDataType = {
-//   cardTitle: 'Attack on Titan',
-//   japTitle: 'Shingeki no Kyojin',
-//   rating: 'R - 17+ (violence & profanity)',
-//   genres: [
-//     { label: 'Action', key: 1 },
-//     { label: 'Award Winning', key: 46 },
-//     { label: 'Drama', key: 8 },
-//     { label: 'Suspense', key: 41 },
-//   ],
-
-//   id: 16498,
-//   img: 'https://cdn.myanimelist.net/images/anime/10/47347l.jpg',
-//   episodes: 25,
-//   year: 2013,
-//   synopsis:
-//     'Centuries ago, mankind was slaughtered to near extinction by monstrous humanoid creatures called Titans, forcing humans to hide in fea…',
-//   status: 'Finished Airing',
-//   score: 8.54,
-//   producers: [
-//     'Production I.G',
-//     'Dentsu',
-//     'Mainichi Broadcasting System',
-//     'Pony Canyon',
-//     'Kodansha',
-//     'Pony Canyon Enterprises',
-//   ],
-// }
 
 const initialSearchFormData = {
   order_by: 'score',
@@ -88,7 +44,12 @@ const reducer = (
         isAnimeListEmpty: false,
       }
     case actionTypes.FETCH_ANIME_SUCCESS:
-      return { ...state, isLoadingAnime: false, animeList: action.payload }
+      return {
+        ...state,
+        isLoadingAnime: false,
+        animeList: action.payload.data,
+        totalPages: action.payload.totalPages,
+      }
     case actionTypes.FETCH_ANIME_FAILURE:
       return { ...state, isLoadingAnime: false, isAnimeError: true }
     case actionTypes.FETCH_ANIME_EMPTY:
@@ -132,10 +93,6 @@ const reducer = (
       return { ...state, monoFilter: action.payload }
     case actionTypes.CLEAR_FILTERS:
       return { ...state, monoFilter: { rating: null, genre: null } }
-    case actionTypes.SET_TOTAL_PAGES:
-      return { ...state, totalPages: action.payload }
-    case actionTypes.CLEAR_TOTAL_PAGES:
-      return { ...state, totalPages: 1 }
     case actionTypes.SET_MULTI_FILTERS:
       return { ...state, multiFilters: action.payload }
     case actionTypes.CLEAR_MULTI_FILTERS:

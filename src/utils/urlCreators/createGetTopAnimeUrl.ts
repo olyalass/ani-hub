@@ -13,7 +13,6 @@ function createGetTopAnimeUrl(
 ) {
   if (filters) {
     if (filters.genre) {
-      console.log(filters.genre)
       return (
         altTopUrl + cardsPerPage + '&genres=' + filters.genre + '&page=' + page
       )

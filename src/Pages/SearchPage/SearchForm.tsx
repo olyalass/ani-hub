@@ -36,10 +36,10 @@ function SearchForm() {
         labelAlign="left"
         layout="vertical"
         onFieldsChange={(changedFields) => {
-          const formDataObj = { ...formObj }
-          const newFormObj: FormObjType = changedFields.reduce((acc, curr) => {
-            return { ...acc, [curr.name[0]]: curr.value }
-          }, formDataObj)
+          const newFormObj: FormObjType = changedFields.reduce(
+            (acc, curr) => ({ ...acc, [curr.name[0]]: curr.value }),
+            { ...formObj },
+          )
           setFormObj(newFormObj)
         }}
         onFinish={() => {
@@ -62,10 +62,10 @@ function SearchForm() {
           <Switch
             checkedChildren={<ArrowUpOutlined style={{ color: 'navy' }} />}
             unCheckedChildren={<ArrowDownOutlined />}
-          ></Switch>
+          />
         </FormItem>
         <FormItem label="Title" name="q" key="q">
-          <Input name="q" placeholder="input title" allowClear></Input>
+          <Input name="q" placeholder="input title" allowClear />
         </FormItem>
         <FormItem label="Rating" name="rating" key="rating">
           <Select allowClear placeholder="select one">

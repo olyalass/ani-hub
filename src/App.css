@@ -1,11 +1,12 @@
+#id {
+  min-height: 100vh;
+  width: 100vw;
+}
+
 .icon {
   font-size: 40px;
   color: #d29ada;
 }
-
-/* .anticon {
-  color: rgba(220, 186, 224, 0.6);
-} */
 
 .search-sider {
   display: flex;

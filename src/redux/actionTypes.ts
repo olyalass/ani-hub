@@ -28,10 +28,6 @@ export const FETCH_ANIME_PAGE_FAILURE = 'FETCH_ANIME_PAGE_FAILURE' as const
 
 export const FETCH_ANIME_PAGE_EMPTY = 'FETCH_ANIME_PAGE_EMPTY' as const
 
-export const SET_TOTAL_PAGES = 'SET_TOTAL_PAGES' as const
-
-export const CLEAR_TOTAL_PAGES = 'CLEAR_TOTAL_PAGES' as const
-
 export const SET_MULTI_FILTERS = 'SET_MULTI_FILTERS' as const
 
 export const CLEAR_MULTI_FILTERS = 'CLEAR_MULTI_FILTERS' as const
