@@ -1,6 +1,6 @@
 import { AnimeBaseResponseType } from '../types'
 
-function filterAnimeDupes(data: AnimeBaseResponseType[]) {
+export function filterAnimeDupes(data: AnimeBaseResponseType[]) {
   const memoIds: { [key: number]: boolean } = data.reduce(
     (acc, item) => ({ ...acc, [item.mal_id]: true }),
     {},
@@ -13,5 +13,3 @@ function filterAnimeDupes(data: AnimeBaseResponseType[]) {
     return false
   })
 }
-
-export default filterAnimeDupes

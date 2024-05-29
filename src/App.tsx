@@ -7,17 +7,19 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import './App.css'
-import HomePage from './Pages/HomePage/HomePage'
 import { getAppStyleUpgrades } from './antdStyleUpgrades'
-import requestGenres from './redux/thunk/requestGenres'
-import ThemeContext from './shared/ThemeContext'
+import { requestGenres } from './redux/thunk'
+import { ThemeContext } from './shared'
 import { DispatchType } from './types'
-import SearchPage from './Pages/SearchPage/SearchPage'
-import RandomAnimePage from './Pages/RandomAnimePage/RandomAnimePage'
-import AnimeByIdPage from './Pages/AnimeByIdPage/AnimeByIdPage'
+import {
+  HomePage,
+  SearchPage,
+  RandomAnimePage,
+  AnimeByIdPage,
+  ListsPage,
+} from './pages'
 import { clearMultiFilters, setQToMultiFilters } from './redux/actionCreators'
-import createNavItems from './utils/createNavItems'
-import ListsPage from './Pages/ListsPage/ListsPage'
+import { createNavItems } from './utils'
 
 const isSystemThemeLight = window.matchMedia(
   '(prefers-color-scheme: light)',

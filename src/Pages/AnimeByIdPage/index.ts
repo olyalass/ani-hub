@@ -1,0 +1,1 @@
+export { AnimeByIdPage } from './AnimeByIdPage'

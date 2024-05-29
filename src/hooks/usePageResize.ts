@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import determineCardsAmountByViewport from '../determineCardsAmountByViewport'
+import { determineCardsAmountByViewport } from '../utils'
 
 const initialTotalCards = determineCardsAmountByViewport()
 
-function usePageResize(onResize: (totalCards: number) => void) {
+export function usePageResize(onResize: (totalCards: number) => void) {
   const [totalCards, setTotalCards] = useState(initialTotalCards)
   useEffect(() => {
     function handleResize() {
@@ -22,5 +22,3 @@ function usePageResize(onResize: (totalCards: number) => void) {
     onResize(totalCards)
   }, [totalCards, onResize])
 }
-
-export default usePageResize

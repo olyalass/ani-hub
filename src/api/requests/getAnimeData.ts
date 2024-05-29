@@ -1,7 +1,7 @@
 import { AnimeBaseResponseType } from '../../types'
-import filterAnimeDupes from '../../utils/filterAnimeDupes'
+import { filterAnimeDupes } from '../../utils'
 
-async function getAnimeData(url: string): Promise<{
+export async function getAnimeData(url: string): Promise<{
   data: AnimeBaseResponseType[]
   isFiltered: boolean
   totalPages: number
@@ -20,5 +20,3 @@ async function getAnimeData(url: string): Promise<{
     totalPages,
   }
 }
-
-export default getAnimeData

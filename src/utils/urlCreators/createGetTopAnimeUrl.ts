@@ -6,7 +6,7 @@ const baseTopUrl =
 const altTopUrl =
   'https://corsproxy.io/?https://api.jikan.moe/v4/anime?sfw&order_by=popularity&limit='
 
-function createGetTopAnimeUrl(
+export function createGetTopAnimeUrl(
   filters?: MonoFiltersType,
   cardsPerPage: number = 1,
   page: number = 1,
@@ -30,5 +30,3 @@ function createGetTopAnimeUrl(
   }
   return baseTopUrl + cardsPerPage + '&page=' + page
 }
-
-export default createGetTopAnimeUrl

@@ -1,7 +1,7 @@
 import { AnimeBaseResponseType } from '../../types'
-import getAnimeData from './getAnimeData'
+import { getAnimeData } from './getAnimeData'
 
-async function getDupesReplacement(
+export async function getDupesReplacement(
   arr: AnimeBaseResponseType[] | void,
   url: string,
   page: number,
@@ -24,5 +24,3 @@ async function getDupesReplacement(
   }
   return newArr
 }
-
-export default getDupesReplacement

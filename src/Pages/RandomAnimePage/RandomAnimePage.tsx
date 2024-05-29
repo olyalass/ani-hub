@@ -2,17 +2,19 @@ import { Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
-import AnimeBigCard from '../../components/AnimeBigCard'
+import {
+  ContentLoading,
+  ContentEmpty,
+  ContentError,
+  CaseComponent,
+  AnimeBigCard,
+} from '../../components'
 import { DispatchType } from '../../types'
-import requestRandomPageData from '../../redux/thunk/requestRandomPageData'
-import ContentLoading from '../../components/Loadings/ContentLoading'
-import ContentError from '../../components/Errors/ContentError'
-import CaseComponent from '../../components/CaseComponent'
+import { requestRandomPageData } from '../../redux/thunk'
 import { fetchAnimePageRequest } from '../../redux/thunk/thunkActionCreators'
-import ContentEmpty from '../../components/Errors/ContentEmpty'
-import { useTypedSelector } from '../../utils/hooks/useTypedSelector'
+import { useTypedSelector } from '../../hooks'
 
-function RandomAnimePage() {
+export function RandomAnimePage() {
   const dispatch: DispatchType = useDispatch()
   const isLoading = useTypedSelector((state) => state.isLoadingAnimePage)
   const isError = useTypedSelector((state) => state.isAnimePageError)
@@ -62,5 +64,3 @@ function RandomAnimePage() {
     </div>
   )
 }
-
-export default RandomAnimePage

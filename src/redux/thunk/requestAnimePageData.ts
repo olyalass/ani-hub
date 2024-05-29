@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 
-import parseAnimePageResponse from '../../api/parsers/parseAnimePageResponse'
+import { parseAnimePageResponse, getAnimePageData } from '../../api'
 import { AnimeBaseResponseType } from '../../types'
 import {
   fetchAnimePageEmpty,
@@ -8,7 +8,6 @@ import {
   fetchAnimePageRequest,
   fetchAnimePageSuccess,
 } from '../thunk/thunkActionCreators'
-import getAnimePageData from '../../api/requests/getAnimePageData'
 
 function requestAnimePageData(url: string) {
   return async (dispatch: Dispatch) => {

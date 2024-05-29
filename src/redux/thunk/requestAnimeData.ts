@@ -7,9 +7,11 @@ import {
   fetchAnimeRequest,
   fetchAnimeSuccess,
 } from '../thunk/thunkActionCreators'
-import getAnimeData from '../../api/requests/getAnimeData'
-import getDupesReplacement from '../../api/requests/getDupesReplacement'
-import parseAnimeResponseItem from '../../api/parsers/parseAnimeResponseItem'
+import {
+  getAnimeData,
+  getDupesReplacement,
+  parseAnimeResponseItem,
+} from '../../api'
 import { StateType } from '../../types'
 import { ActionType } from '../actions'
 

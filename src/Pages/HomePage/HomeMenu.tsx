@@ -3,16 +3,14 @@ import { useDispatch } from 'react-redux'
 import { Menu } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 
-import { ratings } from '../../shared/raitings'
 import {
   clearFilters,
   setMonoGenre,
   setMonoRating,
 } from '../../redux/actionCreators'
-import ThemeContext from '../../shared/ThemeContext'
-import GenresError from '../../components/Errors/GenresError'
-import GenresLoading from '../../components/Loadings/GenresLoading'
-import { useTypedSelector } from '../../utils/hooks/useTypedSelector'
+import { ThemeContext, ratings } from '../../shared'
+import { GenresError, GenresLoading } from '../../components'
+import { useTypedSelector } from '../../hooks'
 
 const rootSubmenuKeys = ['rating', 'genres']
 

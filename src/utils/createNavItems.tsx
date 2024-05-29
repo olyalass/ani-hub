@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function createNavItems(onSearchClick: () => void) {
+export function createNavItems(onSearchClick: () => void) {
   return [
     { key: '/', label: <Link to="/">Home</Link> },
     {
@@ -15,5 +15,3 @@ function createNavItems(onSearchClick: () => void) {
     { key: '/random', label: <Link to="/random">Random</Link> },
   ]
 }
-
-export default createNavItems

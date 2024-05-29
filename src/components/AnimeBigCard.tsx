@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import { AnimePageDataType } from '../types'
 import { setGenreToMultiFilters } from '../redux/actionCreators'
-import createItemsObjForAnimePage from '../utils/createItemsObjForAnimePage'
-import getStatusForBadge from '../utils/getStatusForBadge'
+import { createItemsObjForAnimePage, getStatusForBadge } from '../utils'
 
 function AnimeBigCard({ data }: { data: AnimePageDataType }) {
   const dispatch = useDispatch()

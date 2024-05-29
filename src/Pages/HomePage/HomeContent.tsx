@@ -3,18 +3,21 @@ import { Content } from 'antd/es/layout/layout'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import AnimeCard from '../../components/AnimeCard'
+import {
+  ContentLoading,
+  ContentEmpty,
+  ContentError,
+  CaseComponent,
+  AnimeCard,
+} from '../../components'
 import { AnimeCardType, DispatchType } from '../../types'
 import { clearFilters } from '../../redux/actionCreators'
-import determineCardsAmountByViewport from '../../utils/determineCardsAmountByViewport'
-import requestAnimeData from '../../redux/thunk/requestAnimeData'
-import ContentError from '../../components/Errors/ContentError'
-import ContentLoading from '../../components/Loadings/ContentLoading'
-import createGetTopAnimeUrl from '../../utils/urlCreators/createGetTopAnimeUrl'
-import CaseComponent from '../../components/CaseComponent'
-import ContentEmpty from '../../components/Errors/ContentEmpty'
-import usePageResize from '../../utils/hooks/usePageResize'
-import { useTypedSelector } from '../../utils/hooks/useTypedSelector'
+import {
+  determineCardsAmountByViewport,
+  createGetTopAnimeUrl,
+} from '../../utils'
+import { requestAnimeData } from '../../redux/thunk'
+import { usePageResize, useTypedSelector } from '../../hooks'
 
 const initialCardsAmount = determineCardsAmountByViewport()
 

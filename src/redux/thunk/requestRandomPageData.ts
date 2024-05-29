@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 
-import parseAnimePageResponse from '../../api/parsers/parseAnimePageResponse'
+import { parseAnimePageResponse, getAnimeData } from '../../api'
 import { AnimeBaseResponseType } from '../../types'
 import {
   fetchAnimePageEmpty,
@@ -8,8 +8,7 @@ import {
   fetchAnimePageRequest,
   fetchAnimePageSuccess,
 } from '../thunk/thunkActionCreators'
-import getAnimeData from '../../api/requests/getAnimeData'
-import createGetTopAnimeUrl from '../../utils/urlCreators/createGetTopAnimeUrl'
+import { createGetTopAnimeUrl } from '../../utils'
 
 function requestRandomPageData() {
   const makeRequest = async (dispatch: Dispatch) => {

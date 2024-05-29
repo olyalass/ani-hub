@@ -1,6 +1,6 @@
 import { FormObjType } from '../../types'
 
-function parseFormObjToFormData(data: FormObjType): {
+export function parseFormObjToFormData(data: FormObjType): {
   name: string[]
   value: string | boolean | number[] | null
 }[] {
@@ -17,5 +17,3 @@ function parseFormObjToFormData(data: FormObjType): {
     { name: ['rating'], value: data.rating },
   ]
 }
-
-export default parseFormObjToFormData

@@ -3,16 +3,18 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 
 import { DispatchType } from '../../types'
-import requestAnimePageData from '../../redux/thunk/requestAnimePageData'
-import ContentLoading from '../../components/Loadings/ContentLoading'
-import ContentError from '../../components/Errors/ContentError'
-import AnimeBigCard from '../../components/AnimeBigCard'
-import CaseComponent from '../../components/CaseComponent'
-import ContentEmpty from '../../components/Errors/ContentEmpty'
-import createGetIdAnimeUrl from '../../utils/urlCreators/createGetIdAnimeUrl'
-import { useTypedSelector } from '../../utils/hooks/useTypedSelector'
+import { requestAnimePageData } from '../../redux/thunk'
+import {
+  ContentLoading,
+  ContentEmpty,
+  ContentError,
+  CaseComponent,
+  AnimeBigCard,
+} from '../../components'
+import { createGetIdAnimeUrl } from '../../utils'
+import { useTypedSelector } from '../../hooks'
 
-function AnimeByIdPage() {
+export function AnimeByIdPage() {
   const params = useParams()
   const dispatch: DispatchType = useDispatch()
   const data = useTypedSelector((state) => state.animePageData)
@@ -42,5 +44,3 @@ function AnimeByIdPage() {
     </div>
   )
 }
-
-export default AnimeByIdPage

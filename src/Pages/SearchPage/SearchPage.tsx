@@ -1,7 +1,7 @@
 import SearchForm from './SearchForm'
 import SearchContent from './SearchContent'
 
-function SearchPage() {
+export function SearchPage() {
   return (
     <div
       style={{
@@ -16,5 +16,3 @@ function SearchPage() {
     </div>
   )
 }
-
-export default SearchPage

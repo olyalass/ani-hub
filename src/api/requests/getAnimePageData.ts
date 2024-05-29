@@ -1,6 +1,6 @@
 import { AnimeBaseResponseType } from '../../types'
 
-async function getAnimePageData(url: string) {
+export async function getAnimePageData(url: string) {
   const response = await fetch(url)
   if (response.status === 404) {
     return null
@@ -9,5 +9,3 @@ async function getAnimePageData(url: string) {
 
   return data.data
 }
-
-export default getAnimePageData

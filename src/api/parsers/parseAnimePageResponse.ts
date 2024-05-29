@@ -1,7 +1,7 @@
 import { AnimeBaseResponseType, AnimePageDataType } from '../../types'
-import parseGenre from './parseGenre'
+import { parseGenre } from './parseGenre'
 
-function parseAnimePageResponse(
+export function parseAnimePageResponse(
   fetchedData: AnimeBaseResponseType,
 ): AnimePageDataType {
   return {
@@ -19,5 +19,3 @@ function parseAnimePageResponse(
     producers: fetchedData.producers.map((producer) => producer.name),
   }
 }
-
-export default parseAnimePageResponse

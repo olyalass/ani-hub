@@ -1,0 +1,1 @@
+export { RandomAnimePage } from './RandomAnimePage'

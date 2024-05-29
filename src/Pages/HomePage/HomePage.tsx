@@ -1,7 +1,7 @@
 import HomeMenu from './HomeMenu'
 import HomeContent from './HomeContent'
 
-function HomePage() {
+export function HomePage() {
   return (
     <>
       <HomeMenu />
@@ -9,5 +9,3 @@ function HomePage() {
     </>
   )
 }
-
-export default HomePage

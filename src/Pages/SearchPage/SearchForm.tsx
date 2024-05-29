@@ -9,11 +9,10 @@ import {
   SearchOutlined,
 } from '@ant-design/icons'
 
-import ThemeContext from '../../shared/ThemeContext'
-import { ratings } from '../../shared/raitings'
+import { ThemeContext, ratings } from '../../shared'
 import { FormObjType, StateType } from '../../types'
 import { clearMultiFilters, setMultiFilters } from '../../redux/actionCreators'
-import parseFormObjToFormData from '../../api/parsers/parseFormObjToFormData'
+import { parseFormObjToFormData } from '../../api'
 
 function SearchForm() {
   const initialFormData = useSelector((state: StateType) => state.multiFilters)

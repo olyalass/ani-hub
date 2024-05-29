@@ -8,7 +8,7 @@ import {
   fetchGenresRequest,
   fetchGenresSuccess,
 } from '../thunk/thunkActionCreators'
-import parseGenre from '../../api/parsers/parseGenre'
+import { parseGenre } from '../../api'
 
 function requestGenres(): ThunkAction<void, GenreType[], unknown, ActionType> {
   return async (dispatch: Dispatch) => {

@@ -3,7 +3,7 @@ import { FormObjType } from '../../types'
 const baseSearchUrl =
   'https://corsproxy.io/?https://api.jikan.moe/v4/anime?limit='
 
-function createAdvancedSearchAnimeUrl(
+export function createAdvancedSearchAnimeUrl(
   formData: FormObjType,
   cardsPerPage: number,
   page: number = 1,
@@ -36,5 +36,3 @@ function createAdvancedSearchAnimeUrl(
   }
   return baseSearchUrl + cardsPerPage + searchQuery + '&page=' + page
 }
-
-export default createAdvancedSearchAnimeUrl
