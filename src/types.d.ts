@@ -1,8 +1,6 @@
 import { Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 
-import * as actionTypes from './redux/actionTypes'
-
 export type AnimeBaseResponseType = {
   title_english: string
   title: string
@@ -53,100 +51,48 @@ export type AnimeCardType = {
 }
 
 export type StateType = {
-  animeList: CardDataType[]
+  animeList: CardDataType[] | null
   currPage: number
-  filters: filtersType
+  monoFilter: MonoFiltersType
   genres: GenreType[]
-  animePageData: AnimePageData
+  multiFilters: SearchFormDataType
+  animePageData: AnimePageDataType | null
   isLoadingAnime: boolean
   isLoadingGenres: boolean
   isLoadingAnimePage: boolean
   isAnimeError: boolean
   isGenresError: boolean
   isAnimePageError: boolean
+  isAnimeListEmpty: boolean
   isEmptyPage: boolean
+  q: string | null
+  totalPages: number
+}
+
+type FormObjType = {
+  order_by: string
+  isAscending: boolean
+  q: null | string
+  rating: null | string
+  genres: string[]
+  genres_exclude: string[]
+  status: null | string
+}
+
+type DataFormType = {
+  touched: boolean
+  name: string[]
+  value: string
 }
 
 type GenreType = { label: string; key: number }
 
-type FiltersType = {
-  rating: string[]
-  genres: string[]
+type MonoFiltersType = {
+  rating: string | null
+  genre: string | null
 }
 
 export type filterCategory = 'rating' | 'genres'
-
-type FetchAnimeRequestActionType = {
-  type: typeof actionTypes.FETCH_ANIME_REQUEST
-}
-
-type FetchAnimeSuccessActionType = {
-  type: typeof actionTypes.FETCH_ANIME_SUCCESS
-  payload: CardDataType[]
-}
-
-type FetchAnimeFailureActionType = {
-  type: typeof actionTypes.FETCH_ANIME_FAILURE
-}
-
-type FetchGenresRequestActionType = {
-  type: typeof actionTypes.FETCH_GENRES_REQUEST
-}
-
-type FetchGenresSuccessActionType = {
-  type: typeof actionTypes.FETCH_GENRES_SUCCESS
-  payload: GenreType[]
-}
-
-type FetchGenresFailureActionType = {
-  type: typeof actionTypes.FETCH_GENRES_FAILURE
-}
-
-type FetchAnimePageRequestActionType = {
-  type: typeof actionTypes.FETCH_ANIME_PAGE_REQUEST
-}
-
-type FetchAnimePageSuccessActionType = {
-  type: typeof actionTypes.FETCH_ANIME_PAGE_SUCCESS
-  payload: AnimePageData
-}
-
-type FetchAnimePageFailureActionType = {
-  type: typeof actionTypes.FETCH_ANIME_PAGE_FAILURE
-}
-
-type FetchAnimePageEmptyActionType = {
-  type: typeof actionTypes.FETCH_ANIME_PAGE_EMPTY
-}
-
-type MonoGenreActionType = {
-  type: typeof actionTypes.SET_MONO_GENRE
-  payload: filtersType
-}
-
-type MonoRatingActionType = {
-  type: typeof actionTypes.SET_MONO_RATING
-  payload: filtersType
-}
-
-type ClearFiltersActionType = {
-  type: typeof actionTypes.CLEAR_FILTERS
-}
-
-export type ActionType =
-  | FetchAnimeRequestActionType
-  | FetchAnimeSuccessActionType
-  | FetchAnimeFailureActionType
-  | FetchGenresRequestActionType
-  | FetchGenresSuccessActionType
-  | FetchGenresFailureActionType
-  | FetchAnimePageRequestActionType
-  | FetchAnimePageSuccessActionType
-  | FetchAnimePageFailureActionType
-  | FetchAnimePageEmptyActionType
-  | MonoGenreActionType
-  | MonoRatingActionType
-  | ClearFiltersActionType
 
 export type DispatchType = Dispatch<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

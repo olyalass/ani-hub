@@ -1,9 +1,11 @@
-import { Card, ConfigProvider, Flex, Tag } from 'antd'
+import { Card, Tag } from 'antd'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { AnimeCardType } from '../types'
-import { ratingsMap } from '../shared/raitings'
-import ThemeContext from '../shared/ThemeContext'
+import { ThemeContext, ratingsMap } from '../shared'
+import { setGenreToMultiFilters } from '../redux/actionCreators'
 
 const { Meta } = Card
 
@@ -12,68 +14,50 @@ type Props = {
 }
 
 function AnimeCard({ cardData }: Props) {
+  const dispatch = useDispatch()
   const isLightTheme = useContext(ThemeContext)
   const ratingInfo = ratingsMap[cardData.rating]
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorTextHeading: isLightTheme ? '#000' : '#E4DEE4',
-          colorTextDescription: isLightTheme
-            ? 'rgba(0, 0, 0, 0.45)'
-            : '#B7A6B3',
-        },
-      }}
+    <Card
+      className="anime-card"
+      cover={
+        <img
+          alt={cardData.titleEnglish}
+          src={cardData.img}
+          height="250px"
+          style={{ objectFit: 'cover' }}
+        />
+      }
     >
-      <Card
-        style={{ width: '200px', height: '400px', overflow: 'hidden' }}
-        cover={
-          <img
-            alt={cardData.titleEnglish}
-            src={cardData.img}
-            height="250px"
-            style={{ objectFit: 'cover' }}
-          />
-        }
-      >
+      {ratingInfo && (
         <Tag
           color={isLightTheme ? ratingInfo.color : ratingInfo.darkcolor}
-          style={{
-            position: 'absolute',
-            top: '10px',
-            left: '10px',
-            maxWidth: '50px',
-            overflow: 'hidden',
-          }}
+          className="anime-card-tag"
         >
           {ratingInfo.shortlabel}
         </Tag>
-        <Meta
-          title={cardData.titleEnglish}
-          description={cardData.titleOrig}
-          style={{
-            maxHeight: '60px',
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-          }}
-        />
-        <Flex
-          wrap="wrap"
-          gap="5px"
-          style={{
-            paddingTop: '10px',
-            maxHeight: '60px',
-            overflow: 'hidden',
-          }}
-        >
-          {cardData.genres.map((genre) => (
-            <Tag color={isLightTheme ? 'magenta' : '#d29ada'} key={genre.id}>
+      )}
+      <Meta
+        title={cardData.titleEnglish}
+        description={cardData.titleOrig}
+        className="anime-card-title"
+      />
+      <div className="anime-card-tags-container">
+        {cardData.genres.map((genre) => (
+          <Link to="/search" key={genre.id}>
+            <Tag
+              color={isLightTheme ? 'magenta' : '#d29ada'}
+              key={genre.id}
+              onClick={() => {
+                dispatch(setGenreToMultiFilters(genre.id.toString()))
+              }}
+            >
               {genre.name}
             </Tag>
-          ))}
-        </Flex>
-      </Card>
-    </ConfigProvider>
+          </Link>
+        ))}
+      </div>
+    </Card>
   )
 }
 

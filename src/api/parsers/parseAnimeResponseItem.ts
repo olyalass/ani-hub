@@ -1,6 +1,6 @@
 import { AnimeBaseResponseType, AnimeCardType } from '../../types'
 
-const parseAnimeResponseItem = (
+export const parseAnimeResponseItem = (
   item: AnimeBaseResponseType,
 ): AnimeCardType => ({
   titleEnglish: item.title_english,
@@ -12,5 +12,3 @@ const parseAnimeResponseItem = (
   img: item.images.jpg.image_url,
   rating: item.rating,
 })
-
-export default parseAnimeResponseItem

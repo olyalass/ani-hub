@@ -1,23 +1,27 @@
 import { Button } from 'antd'
 import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
-import AnimeBigCard from './AnimeBigCard'
-import { AnimePageDataType, DispatchType } from '../types'
-import { StateType } from '../types'
-import requestRandomPageData from '../redux/thunk/requestRandomPageData'
-import ContentLoading from './Loadings/ContentLoading'
-import ContentError from './Errors/ContentError'
-import CaseComponent from './CaseComponent'
-import { fetchAnimePageRequest } from '../redux/actionCreators'
-import ContentEmpty from './Errors/ContentEmpty'
+import {
+  ContentLoading,
+  ContentEmpty,
+  ContentError,
+  CaseComponent,
+  AnimeBigCard,
+} from '../../components'
+import { DispatchType } from '../../types'
+import { requestRandomPageData } from '../../redux/thunk'
+import { fetchAnimePageRequest } from '../../redux/thunk/thunkActionCreators'
+import { useTypedSelector } from '../../hooks'
 
-function RandomAnimePage() {
+export function RandomAnimePage() {
   const dispatch: DispatchType = useDispatch()
-  const isLoading = useSelector((state: StateType) => state.isLoadingAnimePage)
-  const isError = useSelector((state: StateType) => state.isAnimePageError)
-  const isEmpty = useSelector((state: StateType) => state.isEmptyPage)
+  const isLoading = useTypedSelector((state) => state.isLoadingAnimePage)
+  const isError = useTypedSelector((state) => state.isAnimePageError)
+  const isEmpty = useTypedSelector((state) => state.isEmptyPage)
+  const data = useTypedSelector((state) => state.animePageData)
+  const isSpinnerActive = isLoading || !data
+
   useEffect(() => {
     dispatch(requestRandomPageData())
 
@@ -26,15 +30,11 @@ function RandomAnimePage() {
     }
   }, [dispatch])
 
-  const data: AnimePageDataType = useSelector(
-    (state: StateType) => state.animePageData,
-  )
-
   return (
     <div className="random-container">
       <CaseComponent
         isError={isError}
-        isLoading={isLoading}
+        isSpinnerActive={isSpinnerActive}
         isEmpty={isEmpty}
         errorElement={
           <ContentError>
@@ -51,7 +51,7 @@ function RandomAnimePage() {
         loadingElement={<ContentLoading />}
         emptyElement={<ContentEmpty type="byId" />}
       >
-        <AnimeBigCard data={data} />
+        {data && <AnimeBigCard data={data} />}
         <Button
           className="random-button"
           onClick={() => {
@@ -64,5 +64,3 @@ function RandomAnimePage() {
     </div>
   )
 }
-
-export default RandomAnimePage

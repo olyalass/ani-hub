@@ -1,25 +1,23 @@
 import { useContext, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Menu } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 
-import { ratings } from '../../shared/raitings'
-import { StateType } from '../../types'
 import {
   clearFilters,
   setMonoGenre,
   setMonoRating,
 } from '../../redux/actionCreators'
-import ThemeContext from '../../shared/ThemeContext'
-import GenresError from '../Errors/GenresError'
-import GenresLoading from '../Loadings/GenresLoading'
+import { ThemeContext, ratings } from '../../shared'
+import { GenresError, GenresLoading } from '../../components'
+import { useTypedSelector } from '../../hooks'
 
 const rootSubmenuKeys = ['rating', 'genres']
 
 function HomeMenu() {
-  const isLoading = useSelector((state: StateType) => state.isLoadingGenres)
-  const isError = useSelector((state: StateType) => state.isGenresError)
-  const genres = useSelector((state: StateType) => state.genres)
+  const isLoading = useTypedSelector((state) => state.isLoadingGenres)
+  const isError = useTypedSelector((state) => state.isGenresError)
+  const genres = useTypedSelector((state) => state.genres)
   const isLightTheme = useContext(ThemeContext)
   const [openKeys, setOpenKeys] = useState(['rating'])
   const dispatch = useDispatch()

@@ -1,7 +1,8 @@
-import { AnimePageDataType } from '../types'
 import { ReactNode } from 'react'
 
-function createItemsObjForAnimePage(
+import { AnimePageDataType } from '../types'
+
+export function createItemsObjForAnimePage(
   data: AnimePageDataType,
   nodeChildrenObj: { rating: ReactNode; genres: ReactNode },
 ) {
@@ -56,5 +57,3 @@ function createItemsObjForAnimePage(
     },
   ]
 }
-
-export default createItemsObjForAnimePage

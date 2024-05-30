@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 type Props = {
   isError: boolean
-  isLoading: boolean
+  isSpinnerActive: boolean
   isEmpty: boolean
   errorElement: ReactNode
   loadingElement: ReactNode
@@ -12,7 +12,7 @@ type Props = {
 
 function CaseComponent({
   isError,
-  isLoading,
+  isSpinnerActive,
   isEmpty,
   errorElement,
   loadingElement,
@@ -27,7 +27,7 @@ function CaseComponent({
     return errorElement
   }
 
-  if (isLoading) {
+  if (isSpinnerActive) {
     return loadingElement
   }
 

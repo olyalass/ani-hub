@@ -1,4 +1,4 @@
-function getStatusForBadge(status: string) {
+export function getStatusForBadge(status: string) {
   switch (status) {
     case 'Finished Airing':
       return 'success'
@@ -22,5 +22,3 @@ function getStatusForBadge(status: string) {
       return 'default'
   }
 }
-
-export default getStatusForBadge
