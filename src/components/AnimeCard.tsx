@@ -2,13 +2,12 @@ import { Card, Tag, Modal } from 'antd'
 import { useContext, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { DeleteOutlined, ZoomInOutlined } from '@ant-design/icons'
 
 import { AnimeCardType, DispatchType } from '../types'
 import { ThemeContext, ratingsMap } from '../shared'
 import { deleteItemFromList } from '../redux/slices'
 import AddToListSelect from './AddToListSelect'
-import { DeleteOutlined, ZoomInOutlined } from '@ant-design/icons'
-
 const { Meta } = Card
 
 type Props = {
@@ -102,7 +101,7 @@ function AnimeCard({ cardData, isDeletable }: Props) {
             title={'Go to ' + genre.name}
             key={genre.id}
             onClick={() => {
-              navigate('/search/genres=' + genre.id)
+              navigate('/search?genres=' + genre.id)
             }}
             style={{ cursor: 'pointer' }}
           >

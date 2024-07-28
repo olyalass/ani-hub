@@ -1,12 +1,12 @@
-import { Badge, Descriptions, Image, Button, Typography } from 'antd'
+import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { YoutubeFilled } from '@ant-design/icons'
+import Paragraph from 'antd/es/typography/Paragraph'
+import { Badge, Descriptions, Image, Button, Typography } from 'antd'
 
 import { AnimePageDataType } from '../types'
 import { createItemsObjForAnimePage, getStatusForBadge } from '../utils'
 import AddToListSelect from './AddToListSelect'
-import { YoutubeFilled } from '@ant-design/icons'
-import Paragraph from 'antd/es/typography/Paragraph'
-import { useContext } from 'react'
 import { ThemeContext } from '../shared'
 
 function AnimeBigCard({ data }: { data: AnimePageDataType }) {
@@ -21,7 +21,7 @@ function AnimeBigCard({ data }: { data: AnimePageDataType }) {
         key={genre.key}
         title={'Go to ' + genre.label}
         onClick={() => {
-          navigate('/search/genres=' + genre.key)
+          navigate('/search?genres=' + genre.key)
         }}
       >
         {genre.label}
