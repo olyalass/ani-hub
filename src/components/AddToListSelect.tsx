@@ -52,7 +52,7 @@ function AddToListSelect({
     if (verification.isValid) {
       setIsNewNameInvalid(false)
       setListNames([...listNames].splice(0, 1, 'add', trimmedName))
-      dispatch(postNewList(trimmedName))
+      dispatch(postNewList(trimmedName, [animeId]))
     } else {
       setIsNewNameInvalid(true)
       setWarningMessage(verification.message)
