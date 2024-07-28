@@ -1,13 +1,8 @@
 export function copyLinkToClipboard(link: string) {
   if (navigator.clipboard && window.isSecureContext) {
-    return navigator.clipboard
-      .writeText(link)
-      .then(function () {
-        console.log('Text successfully copied to clipboard')
-      })
-      .catch(function (err) {
-        console.error('Could not copy text: ', err)
-      })
+    return navigator.clipboard.writeText(link).catch(function (err) {
+      console.error('Could not copy text: ', err)
+    })
   } else {
     const textArea = document.createElement('textarea')
     textArea.value = link
@@ -28,11 +23,9 @@ export function copyLinkToClipboard(link: string) {
     textArea.select()
 
     try {
-      const successful = document.execCommand('copy')
-      const msg = successful ? 'successful' : 'unsuccessful'
-      console.log('Fallback: Copying text command was ' + msg)
+      document.execCommand('copy')
     } catch (err) {
-      console.error('Fallback: Oops, unable to copy', err)
+      console.error('Unable to copy', err)
     }
 
     document.body.removeChild(textArea)

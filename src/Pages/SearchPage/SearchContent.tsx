@@ -2,7 +2,7 @@ import { Flex, Pagination } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { useDispatch } from 'react-redux'
 import { useCallback, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
 import {
   ContentLoading,
@@ -41,27 +41,13 @@ function setPageNumToFilters(
   } else return 'page=' + page
 }
 
-function getPageFromFilters(filters: string | undefined): number {
-  if (filters && filters.includes('page=')) {
-    const startIndex = filters.indexOf('page=') + 5
-    const lastIndex = filters.indexOf('&', startIndex)
-    let pageNum
-
-    if (lastIndex > startIndex) {
-      pageNum = Number(filters.substring(startIndex, lastIndex))
-    } else {
-      pageNum = Number(filters.substring(startIndex))
-    }
-
-    return pageNum ? pageNum : 1
-  }
-  return 1
-}
-
 function SearchContent() {
-  const { filters } = useParams()
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const queryString = searchParams.toString()
+  const page = searchParams.get('page')
   const navigate = useNavigate()
-  const [currPage, setCurrPage] = useState(getPageFromFilters(filters))
+  const [currPage, setCurrPage] = useState(Number(page))
   const [cardsAmount, setCardsAmount] = useState(initialCardsAmount)
 
   const totalPages = useTypedSelector((state) => state.searchCards.totalPages)
@@ -80,12 +66,12 @@ function SearchContent() {
   usePageResize(onResize)
 
   useEffect(() => {
-    dispatch(requestSearchCardsData(cardsAmount, currPage, filters))
-  }, [dispatch, currPage, filters, cardsAmount])
+    dispatch(requestSearchCardsData(cardsAmount, currPage, queryString))
+  }, [dispatch, currPage, queryString, cardsAmount])
 
   useEffect(() => {
-    setCurrPage(getPageFromFilters(filters))
-  }, [filters])
+    setCurrPage(Number(page) ? Number(page) : 1)
+  }, [page])
 
   return (
     <Content className="content-container">
@@ -114,7 +100,7 @@ function SearchContent() {
             current={currPage}
             onChange={(value) => {
               setCurrPage(value)
-              navigate('/search/' + setPageNumToFilters(value, filters))
+              navigate('/search?' + setPageNumToFilters(value, queryString))
             }}
             total={totalPages * cardsAmount}
             pageSize={cardsAmount}

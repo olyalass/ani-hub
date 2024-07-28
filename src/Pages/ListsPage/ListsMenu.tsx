@@ -54,11 +54,12 @@ function ListsMenu() {
                     const { value } = e.target
                     const isValid = /^[a-zA-Z0-9 ]*$/.test(value)
                     if (isValid) {
-                      const formatedName =
-                        e.target.value[0].toUpperCase() +
-                        e.target.value.substring(1)
-                      setNewListName(formatedName)
+                      setNewListName(value)
                       setIsNewNameInvalid(false)
+                    } else {
+                      setIsNewNameInvalid(true)
+                      setWarningMessage('a-z A-Z 0-9 symbols only')
+                      setTimeout(() => setIsNewNameInvalid(false), 2000)
                     }
                   }}
                   onSearch={() => {

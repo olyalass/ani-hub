@@ -1,6 +1,7 @@
 import Form from 'antd/es/form/Form'
 import FormItem from 'antd/es/form/FormItem'
 import { useContext, useMemo, useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 import { Button, Switch, Input, Select } from 'antd'
 import {
   ArrowDownOutlined,
@@ -13,14 +14,20 @@ import { FiltersType } from '../../types'
 import {
   parseFormObjToFormData,
   parseObjFiltersToUrl,
-  parseUrlFiltersToObj,
+  parseSearchParamsToObj,
 } from '../../api'
 import { useTypedSelector } from '../../hooks'
-import { useNavigate, useParams } from 'react-router'
 
 function SearchForm() {
-  const { filters } = useParams()
-  const urlFormData = useMemo(() => parseUrlFiltersToObj(filters), [filters])
+  const location = useLocation()
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search],
+  )
+  const urlFormData = useMemo(
+    () => parseSearchParamsToObj(searchParams),
+    [searchParams],
+  )
   const [formObj, setFormObj] = useState(urlFormData)
   const isLightTheme = useContext(ThemeContext)
   const genres = useTypedSelector((state) => state.genres.genres)
@@ -48,7 +55,7 @@ function SearchForm() {
         }}
         onFinish={() => {
           const path = parseObjFiltersToUrl(formObj)
-          navigate('/search/' + path)
+          navigate('/search?' + path)
         }}
         fields={parseFormObjToFormData(formObj)}
       >

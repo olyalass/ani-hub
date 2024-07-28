@@ -15,7 +15,7 @@ function postNewList(listName: string, ids?: number[]) {
       const objectStore = transaction.objectStore('lists')
       let value: number[] = []
       if (ids) {
-        value = value.concat(ids)
+        value = [...ids]
       }
       const request = objectStore.add(value, listName)
 

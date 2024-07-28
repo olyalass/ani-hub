@@ -37,7 +37,7 @@ function App() {
   }, [dispatch])
 
   function onSearch(value: string) {
-    navigate('/search/q=' + value)
+    navigate('/search?q=' + value)
     setSearchValue('')
   }
 
@@ -83,7 +83,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/search" element={<SearchPage />} />
-              <Route path="/search/:filters" element={<SearchPage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/random" element={<RandomAnimePage />} />
               <Route path="/:id" element={<AnimeByIdPage />} />
               <Route path="/lists" element={<ListsPage />} />

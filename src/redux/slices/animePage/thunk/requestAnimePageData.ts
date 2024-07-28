@@ -19,7 +19,6 @@ function requestAnimePageData(url: string) {
         dispatch(fetchAnimePageEmpty())
       } else {
         const parsedPageData = parseAnimePageResponse(responsePageData)
-        console.log(responsePageData)
         dispatch(fetchAnimePageSuccess(parsedPageData))
       }
     } catch {

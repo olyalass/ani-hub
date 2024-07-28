@@ -4,8 +4,8 @@ import {
   listsReducer,
   pageReducer,
   searchCardsReducer,
+  homeCardsReducer,
 } from './slices'
-import homeCardsReducer from './slices/homeCards/reducer'
 
 const rootReducer = combineReducers({
   lists: listsReducer,

@@ -5,7 +5,7 @@ function initDb(): Promise<IDBDatabase> {
     request.onupgradeneeded = function (event: IDBVersionChangeEvent) {
       const db = (event.target as IDBOpenDBRequest).result
       if (!db.objectStoreNames.contains('lists')) {
-        db.createObjectStore('lists', { keyPath: 'key' })
+        db.createObjectStore('lists')
       }
     }
 
