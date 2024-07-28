@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 
 import { DispatchType } from '../../types'
-import { requestAnimePageData } from '../../redux/thunk'
+import { requestAnimePageData } from '../../redux/slices/animePage/thunk'
 import {
   ContentLoading,
   ContentEmpty,
@@ -15,17 +15,15 @@ import { createGetIdAnimeUrl } from '../../utils'
 import { useTypedSelector } from '../../hooks'
 
 export function AnimeByIdPage() {
-  const params = useParams()
+  const { id } = useParams()
   const dispatch: DispatchType = useDispatch()
-  const data = useTypedSelector((state) => state.animePageData)
-  const isLoading = useTypedSelector((state) => state.isLoadingAnimePage)
-  const isError = useTypedSelector((state) => state.isAnimePageError)
-  const isEmpty = useTypedSelector((state) => state.isEmptyPage)
-  const isSpinnerActive = isLoading || !data
-  const id = Number(params.id)
+  const data = useTypedSelector((state) => state.animePage.data)
+  const isLoading = useTypedSelector((state) => state.animePage.isLoading)
+  const isError = useTypedSelector((state) => state.animePage.isError)
+  const isEmpty = useTypedSelector((state) => state.animePage.isEmpty)
 
   useEffect(() => {
-    const url = createGetIdAnimeUrl(id)
+    const url = createGetIdAnimeUrl(Number(id))
     dispatch(requestAnimePageData(url))
   }, [dispatch, id])
 
@@ -33,7 +31,7 @@ export function AnimeByIdPage() {
     <div className="random-container">
       <CaseComponent
         isError={isError}
-        isSpinnerActive={isSpinnerActive}
+        isSpinnerActive={isLoading}
         isEmpty={isEmpty}
         errorElement={<ContentError />}
         loadingElement={<ContentLoading />}

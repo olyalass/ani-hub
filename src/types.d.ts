@@ -6,14 +6,21 @@ export type AnimeBaseResponseType = {
   title: string
   mal_id: number
   genres: { name: string; mal_id: number }[]
-  images: { jpg: { image_url: string } }
+  images: { jpg: { large_image_url: string } }
   rating: string
   year: number
   status: string
   episodes: number
-  producers: [{ mal_id: number; name: string }]
+  studios: [{ mal_id: number; name: string }]
   score: number
   synopsis: string
+  trailer: { url: string }
+  themes: { name: string }[]
+  theme: { endings: string[]; openings: string[] }
+  relations: {
+    relation: string
+    entry: { mal_id: number; type: string; name: string }[]
+  }[]
 }
 
 export type AnimePageDataType = {
@@ -25,10 +32,14 @@ export type AnimePageDataType = {
   episodes: number
   img: string
   status: string
-  producers: string[]
+  studios: string[]
   score: number
   id: number
   synopsis: string
+  trailer: string | null
+  themes: string[]
+  music: { openings: string[]; endings: string[] }
+  related: { relation: string; entry: { id: number; title: string }[] }[]
 }
 
 export type RatingType = {
@@ -51,33 +62,97 @@ export type AnimeCardType = {
 }
 
 export type StateType = {
-  animeList: CardDataType[] | null
+  animeCardsData: CardDataType[] | null
   currPage: number
-  monoFilter: MonoFiltersType
   genres: GenreType[]
-  multiFilters: SearchFormDataType
+  filters: FiltersType
   animePageData: AnimePageDataType | null
-  isLoadingAnime: boolean
+  isLoadingCards: boolean
   isLoadingGenres: boolean
   isLoadingAnimePage: boolean
-  isAnimeError: boolean
+  isCardsError: boolean
   isGenresError: boolean
   isAnimePageError: boolean
-  isAnimeListEmpty: boolean
+  isCardsDataEmpty: boolean
   isEmptyPage: boolean
-  q: string | null
+  totalPages: number
+  lists: ListsType
+  currList: string | null
+  currListAnimeCards: AnimeCardType[]
+  isListAnimeLoading: boolean
+  isListAnimeError: boolean
+  isPostingLists: boolean
+  isPostingError: boolean
+  isListsLoading: boolean
+  isListsError: boolean
+}
+
+export interface HomeCardsStateType {
+  data: CardDataType[] | null
+  isLoading: boolean
+  isError: boolean
+  isEmpty: boolean
+  currPage: number
+  totalPages: number
+  filters: HomeFiltersType
+}
+
+export interface SearchCardsStateType {
+  data: CardDataType[] | null
+  isLoading: boolean
+  isError: boolean
+  isEmpty: boolean
+  currPage: number
   totalPages: number
 }
 
-type FormObjType = {
+export type CardsStateType = HomeCardsStateType | SearchCardsStateType
+
+export interface GenresStateType {
+  genres: GenreType[]
+  isLoading: boolean
+  isError: boolean
+}
+
+export interface PageStateType {
+  data: AnimePageDataType | null
+  isLoading: boolean
+  isError: boolean
+  isEmpty: boolean
+}
+
+export interface FilterStateType {
+  filters: FiltersType
+}
+
+export interface ListsStateType {
+  lists: ListsType
+  currListAnimeCards: AnimeCardType[]
+  isCardsDataLoading: boolean
+  isCardsDataError: boolean
+  isCardsDataEmpty: boolean
+  isPostingLists: boolean
+  isPostingError: boolean
+  isListsLoading: boolean
+  isListsError: boolean
+}
+
+export type ListsType = { [key: string]: number[] }
+
+type FiltersType = {
   order_by: string
   isAscending: boolean
-  q: null | string
+  searchword: null | string | undefined
   rating: null | string
   genres: string[]
   genres_exclude: string[]
   status: null | string
 }
+
+type HomeFiltersType =
+  | { rating: null; genre: string }
+  | { rating: string; genre: null }
+  | { rating: null; genre: null }
 
 type DataFormType = {
   touched: boolean

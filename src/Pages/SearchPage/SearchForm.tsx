@@ -1,29 +1,34 @@
 import Form from 'antd/es/form/Form'
 import FormItem from 'antd/es/form/FormItem'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useMemo, useState, useEffect } from 'react'
 import { Button, Switch, Input, Select } from 'antd'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
 
-import { ThemeContext, ratings } from '../../shared'
-import { FormObjType, StateType } from '../../types'
-import { clearMultiFilters, setMultiFilters } from '../../redux/actionCreators'
-import { parseFormObjToFormData } from '../../api'
+import { ThemeContext, initialSearchFormData, ratings } from '../../shared'
+import { FiltersType } from '../../types'
+import {
+  parseFormObjToFormData,
+  parseObjFiltersToUrl,
+  parseUrlFiltersToObj,
+} from '../../api'
+import { useTypedSelector } from '../../hooks'
+import { useNavigate, useParams } from 'react-router'
 
 function SearchForm() {
-  const initialFormData = useSelector((state: StateType) => state.multiFilters)
-  const dispatch = useDispatch()
-  const [formObj, setFormObj] = useState(initialFormData)
+  const { filters } = useParams()
+  const urlFormData = useMemo(() => parseUrlFiltersToObj(filters), [filters])
+  const [formObj, setFormObj] = useState(urlFormData)
   const isLightTheme = useContext(ThemeContext)
-  const genres = useSelector((state: StateType) => state.genres)
+  const genres = useTypedSelector((state) => state.genres.genres)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    setFormObj(initialFormData)
-  }, [initialFormData])
+    setFormObj(urlFormData)
+  }, [urlFormData])
 
   return (
     <aside
@@ -35,14 +40,15 @@ function SearchForm() {
         labelAlign="left"
         layout="vertical"
         onFieldsChange={(changedFields) => {
-          const newFormObj: FormObjType = changedFields.reduce(
+          const newFormObj: FiltersType = changedFields.reduce(
             (acc, curr) => ({ ...acc, [curr.name[0]]: curr.value }),
             { ...formObj },
           )
           setFormObj(newFormObj)
         }}
         onFinish={() => {
-          dispatch(setMultiFilters(formObj))
+          const path = parseObjFiltersToUrl(formObj)
+          navigate('/search/' + path)
         }}
         fields={parseFormObjToFormData(formObj)}
       >
@@ -63,8 +69,8 @@ function SearchForm() {
             unCheckedChildren={<ArrowDownOutlined />}
           />
         </FormItem>
-        <FormItem label="Title" name="q" key="q">
-          <Input name="q" placeholder="input title" allowClear />
+        <FormItem label="Title" name="searchword" key="searchword">
+          <Input name="searchword" placeholder="input title" allowClear />
         </FormItem>
         <FormItem label="Rating" name="rating" key="rating">
           <Select allowClear placeholder="select one">
@@ -120,7 +126,8 @@ function SearchForm() {
         </Button>
         <Button
           onClick={() => {
-            dispatch(clearMultiFilters())
+            setFormObj(initialSearchFormData)
+            navigate('/search')
           }}
         >
           Clear filters

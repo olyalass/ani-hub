@@ -1,13 +1,13 @@
-import { MonoFiltersType } from '../../types'
+import { HomeFiltersType } from '../../types'
 
 const baseTopUrl =
-  'https://corsproxy.io/?https://api.jikan.moe/v4/top/anime?sfw&limit='
+  'https://corsproxy.io/?https://api.jikan.moe/v4/top/anime?limit='
 
 const altTopUrl =
-  'https://corsproxy.io/?https://api.jikan.moe/v4/anime?sfw&order_by=popularity&limit='
+  'https://corsproxy.io/?https://api.jikan.moe/v4/anime?order_by=popularity&limit='
 
 export function createGetTopAnimeUrl(
-  filters?: MonoFiltersType,
+  filters?: HomeFiltersType,
   cardsPerPage: number = 1,
   page: number = 1,
 ) {

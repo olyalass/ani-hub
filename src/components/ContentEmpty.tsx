@@ -1,6 +1,10 @@
 import { FrownOutlined } from '@ant-design/icons'
 
-function ContentEmpty({ type }: { type: 'byId' | 'byFilters' | 'byList' }) {
+function ContentEmpty({
+  type,
+}: {
+  type: 'byId' | 'byFilters' | 'byList' | 'noList'
+}) {
   let message = ''
   switch (type) {
     case 'byFilters':
@@ -12,13 +16,16 @@ function ContentEmpty({ type }: { type: 'byId' | 'byFilters' | 'byList' }) {
     case 'byList':
       message = 'This list is empty'
       break
+    case 'noList':
+      message = 'Choose a list to see saved animes'
+      break
     default:
       message = 'Empty page'
   }
 
   return (
     <div className="icon-container">
-      <FrownOutlined className="icon" />
+      {type !== 'noList' && <FrownOutlined className="icon" />}
       <p className="icon-message">{message}</p>
     </div>
   )

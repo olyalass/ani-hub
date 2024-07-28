@@ -72,9 +72,26 @@
   flex-grow: 1;
 }
 
+.ant-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.content-wrap {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: start;
+  width: 100%;
+  min-height: 80vh;
+}
+
 .anime-card {
   width: 200px;
-  height: 400px;
+  height: 435px;
+  padding-bottom: 50px;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -85,6 +102,53 @@
   left: 10px;
   max-width: 50px;
   overflow: hidden;
+}
+
+.poster-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.poster-addition {
+  color: rgba(255, 240, 245, 0.696);
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 90px;
+  width: 100%;
+  height: 70px;
+  cursor: pointer;
+}
+
+.poster-icon {
+  font-size: 40px;
+}
+
+.poster-container:hover > .poster-addition {
+  visibility: visible;
+  z-index: 3;
+}
+
+.poster-container:hover > .poster {
+  filter: blur(4px) brightness(0.4);
+}
+
+.delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  border: 1px solid #d29ada;
+  color: #d29ada;
 }
 
 .anime-card-title {
@@ -109,16 +173,36 @@
   justify-content: space-between;
   align-items: start;
   padding: 3vw;
-  border: 2px solid #d29ada;
+  /* border: 2px solid #d29ada; */
   border-radius: 10px;
   min-width: 60vw;
   max-width: 70vw;
 }
 
-.anime-page-container {
+.anime-big-card-container {
+  position: relative;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 15px;
+}
+
+.anime-page-container {
+  display: flex;
   justify-content: center;
+}
+
+.anime-big-card-extra {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+.light-text {
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .descriptions {
@@ -154,6 +238,17 @@
   justify-content: space-between;
 }
 
+.add-to-list-select {
+  position: absolute;
+  bottom: 10px;
+  width: 80%;
+}
+
+.add-to-list-select-right {
+  width: 250px;
+  position: static;
+}
+
 @media (max-width: 1400px) {
   .anime-big-card {
     align-items: center;
@@ -167,5 +262,19 @@
 
   .descriptions {
     max-width: 80%;
+  }
+
+  .search-container {
+    display: none;
+  }
+
+  .nav {
+    justify-content: end;
+  }
+}
+
+@media (max-width: 800px) {
+  .descriptions {
+    max-width: unset;
   }
 }

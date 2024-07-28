@@ -1,14 +1,13 @@
 import { Header } from 'antd/es/layout/layout'
 import { SunOutlined, MoonOutlined } from '@ant-design/icons'
 import { ConfigProvider, Layout, Input, Space, Menu, Switch } from 'antd'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import './App.css'
 import { getAppStyleUpgrades } from './antdStyleUpgrades'
-import { requestGenres } from './redux/thunk'
 import { ThemeContext } from './shared'
 import { DispatchType } from './types'
 import {
@@ -18,9 +17,9 @@ import {
   AnimeByIdPage,
   ListsPage,
 } from './pages'
-import { clearMultiFilters, setQToMultiFilters } from './redux/actionCreators'
+import { requestLists, requestGenres, clearHomeFilters } from './redux/slices'
 import { createNavItems } from './utils'
-
+import { SharedPage } from './pages/SharedPage'
 const isSystemThemeLight = window.matchMedia(
   '(prefers-color-scheme: light)',
 ).matches
@@ -34,13 +33,17 @@ function App() {
 
   useEffect(() => {
     dispatch(requestGenres())
+    dispatch(requestLists())
   }, [dispatch])
 
   function onSearch(value: string) {
-    dispatch(setQToMultiFilters(value))
-    navigate('/search')
+    navigate('/search/q=' + value)
     setSearchValue('')
   }
+
+  const onHomePageClick = useCallback(() => {
+    dispatch(clearHomeFilters)
+  }, [dispatch])
 
   return (
     <ThemeContext.Provider value={isLightTheme}>
@@ -52,7 +55,7 @@ function App() {
                 <h1 className="app-title">Anime Universe</h1>
               </Link>
               <div className="nav">
-                <Space.Compact size="middle">
+                <Space.Compact size="middle" className="search-container">
                   <Input.Search
                     placeholder="input anime title"
                     value={searchValue}
@@ -63,8 +66,8 @@ function App() {
                 <Menu
                   mode="horizontal"
                   theme="dark"
-                  items={createNavItems(dispatch(clearMultiFilters))}
-                  defaultSelectedKeys={[location.pathname]}
+                  items={createNavItems(onHomePageClick)}
+                  selectedKeys={['/' + location.pathname.split('/')[1]]}
                 />
               </div>
               <Switch
@@ -76,13 +79,16 @@ function App() {
               />
             </div>
           </Header>
-          <Layout>
+          <Layout style={{ width: '100vw' }}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/search" element={<SearchPage />} />
+              <Route path="/search/:filters" element={<SearchPage />} />
               <Route path="/random" element={<RandomAnimePage />} />
               <Route path="/:id" element={<AnimeByIdPage />} />
               <Route path="/lists" element={<ListsPage />} />
+              <Route path="/lists/:listname" element={<ListsPage />} />
+              <Route path="/shared" element={<SharedPage />} />
             </Routes>
           </Layout>
         </Layout>

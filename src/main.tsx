@@ -9,11 +9,11 @@ import App from './App.tsx'
 import './index.css'
 import { DispatchType, StateType } from './types'
 import { ActionType } from './redux/actions'
-import reducer from './redux/reducer.ts'
+import rootReducer, { RootState } from './redux/reducer.ts'
 
-const store: Store<StateType, ActionType> & { dispatch: DispatchType } =
+const store: Store<RootState, ActionType> & { dispatch: DispatchType } =
   createStore(
-    reducer,
+    rootReducer,
     applyMiddleware(thunk as ThunkMiddleware<StateType, ActionType>),
   )
 

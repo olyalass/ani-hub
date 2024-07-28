@@ -4,10 +4,10 @@ import { Menu } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 
 import {
-  clearFilters,
-  setMonoGenre,
-  setMonoRating,
-} from '../../redux/actionCreators'
+  clearHomeFilters,
+  setGenreToHomeFilters,
+  setRatingToHomeFilters,
+} from '../../redux/slices'
 import { ThemeContext, ratings } from '../../shared'
 import { GenresError, GenresLoading } from '../../components'
 import { useTypedSelector } from '../../hooks'
@@ -15,9 +15,9 @@ import { useTypedSelector } from '../../hooks'
 const rootSubmenuKeys = ['rating', 'genres']
 
 function HomeMenu() {
-  const isLoading = useTypedSelector((state) => state.isLoadingGenres)
-  const isError = useTypedSelector((state) => state.isGenresError)
-  const genres = useTypedSelector((state) => state.genres)
+  const isLoading = useTypedSelector((state) => state.genres.isLoading)
+  const isError = useTypedSelector((state) => state.genres.isError)
+  const genres = useTypedSelector((state) => state.genres.genres)
   const isLightTheme = useContext(ThemeContext)
   const [openKeys, setOpenKeys] = useState(['rating'])
   const dispatch = useDispatch()
@@ -39,11 +39,12 @@ function HomeMenu() {
     keyPath: string[]
   }) => {
     if (keyPath.includes('rating')) {
-      dispatch(setMonoRating(key))
+      dispatch(setRatingToHomeFilters(key))
     } else if (keyPath.includes('genres')) {
-      dispatch(setMonoGenre(key))
+      dispatch(setGenreToHomeFilters(key))
     } else {
-      dispatch(clearFilters())
+      dispatch(clearHomeFilters())
+      setOpenKeys([])
     }
   }
 

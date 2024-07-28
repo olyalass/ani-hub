@@ -1,16 +1,21 @@
 import { Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 
-import { GenresBaseResponseType, GenreType } from '../../types'
-import { ActionType } from '../actions'
+import { GenresBaseResponseType, GenreType } from '../../../../types'
+import { GenresActionType } from '../actions/actions'
 import {
   fetchGenresFailure,
   fetchGenresRequest,
   fetchGenresSuccess,
-} from '../thunk/thunkActionCreators'
-import { parseGenre } from '../../api'
+} from '../actions/actionCreators'
+import { parseGenre } from '../../../../api'
 
-function requestGenres(): ThunkAction<void, GenreType[], unknown, ActionType> {
+function requestGenres(): ThunkAction<
+  void,
+  GenreType[],
+  unknown,
+  GenresActionType
+> {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(fetchGenresRequest())

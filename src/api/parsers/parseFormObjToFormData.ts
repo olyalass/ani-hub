@@ -1,9 +1,13 @@
-import { FormObjType } from '../../types'
+import { FiltersType } from '../../types'
 
-export function parseFormObjToFormData(data: FormObjType): {
+export function parseFormObjToFormData(data: FiltersType): {
   name: string[]
   value: string | boolean | number[] | null
 }[] {
+  let searchwordValue = data.searchword
+  if (typeof searchwordValue === 'undefined') {
+    searchwordValue = null
+  }
   return [
     { name: ['genres'], value: data.genres.map((genre) => Number(genre)) },
     {
@@ -12,7 +16,7 @@ export function parseFormObjToFormData(data: FormObjType): {
     },
     { name: ['order_by'], value: data.order_by },
     { name: ['isAscending'], value: data.isAscending },
-    { name: ['q'], value: data.q },
+    { name: ['searchword'], value: searchwordValue },
     { name: ['status'], value: data.status },
     { name: ['rating'], value: data.rating },
   ]

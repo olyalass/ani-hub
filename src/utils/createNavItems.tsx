@@ -1,17 +1,26 @@
 import { Link } from 'react-router-dom'
 
-export function createNavItems(onSearchClick: () => void) {
+export function createNavItems(onHomePageClick: () => void) {
   return [
-    { key: '/', label: <Link to="/">Home</Link> },
     {
-      key: '/search',
+      key: '/',
       label: (
-        <Link to="/search" onClick={onSearchClick}>
-          Search
+        <Link to="/" onClick={onHomePageClick}>
+          Home
         </Link>
       ),
     },
-    { key: '/lists', label: <Link to="/lists">My Lists</Link> },
-    { key: '/random', label: <Link to="/random">Random</Link> },
+    {
+      key: '/search',
+      label: <Link to="/search">Search</Link>,
+    },
+    {
+      key: '/lists',
+      label: <Link to="/lists">My Lists</Link>,
+    },
+    {
+      key: '/random',
+      label: <Link to="/random">Random</Link>,
+    },
   ]
 }

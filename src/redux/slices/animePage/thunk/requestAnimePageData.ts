@@ -1,13 +1,13 @@
 import { Dispatch } from 'redux'
 
-import { parseAnimePageResponse, getAnimePageData } from '../../api'
-import { AnimeBaseResponseType } from '../../types'
+import { parseAnimePageResponse, getAnimePageData } from '../../../../api'
+import { AnimeBaseResponseType } from '../../../../types'
 import {
   fetchAnimePageEmpty,
   fetchAnimePageFailure,
   fetchAnimePageRequest,
   fetchAnimePageSuccess,
-} from '../thunk/thunkActionCreators'
+} from '../actions/actionCreators'
 
 function requestAnimePageData(url: string) {
   return async (dispatch: Dispatch) => {
@@ -19,6 +19,7 @@ function requestAnimePageData(url: string) {
         dispatch(fetchAnimePageEmpty())
       } else {
         const parsedPageData = parseAnimePageResponse(responsePageData)
+        console.log(responsePageData)
         dispatch(fetchAnimePageSuccess(parsedPageData))
       }
     } catch {
