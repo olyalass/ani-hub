@@ -22,7 +22,7 @@ const store: Store<RootState, ActionType> & { dispatch: DispatchType } =
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename="/movie-lib/dist">
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
