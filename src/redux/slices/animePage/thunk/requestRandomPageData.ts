@@ -1,14 +1,18 @@
 import { Dispatch } from 'redux'
 
-import { parseAnimePageResponse, getAnimeData } from '../../api'
-import { AnimeBaseResponseType } from '../../types'
+import {
+  parseAnimePageResponse,
+  getAnimeData,
+  getAnimePageData,
+} from '../../../../api'
+import { AnimeBaseResponseType } from '../../../../types'
 import {
   fetchAnimePageEmpty,
   fetchAnimePageFailure,
   fetchAnimePageRequest,
   fetchAnimePageSuccess,
-} from '../thunk/thunkActionCreators'
-import { createGetTopAnimeUrl } from '../../utils'
+} from '../actions/actionCreators'
+import { createGetIdAnimeUrl, createGetTopAnimeUrl } from '../../../../utils'
 
 function requestRandomPageData() {
   const makeRequest = async (dispatch: Dispatch) => {
@@ -28,8 +32,13 @@ function requestRandomPageData() {
         dispatch(fetchAnimePageEmpty())
       } else {
         const responsePageArray = responseData.data
-        const parsedPageData = parseAnimePageResponse(responsePageArray[0])
-        dispatch(fetchAnimePageSuccess(parsedPageData))
+        const responsePage = await getAnimePageData(
+          createGetIdAnimeUrl(responsePageArray[0].mal_id),
+        )
+        if (responsePage) {
+          const parsedPageData = parseAnimePageResponse(responsePage)
+          dispatch(fetchAnimePageSuccess(parsedPageData))
+        }
       }
     } catch {
       dispatch(fetchAnimePageFailure())

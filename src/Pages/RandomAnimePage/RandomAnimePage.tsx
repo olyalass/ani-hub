@@ -10,24 +10,19 @@ import {
   AnimeBigCard,
 } from '../../components'
 import { DispatchType } from '../../types'
-import { requestRandomPageData } from '../../redux/thunk'
-import { fetchAnimePageRequest } from '../../redux/thunk/thunkActionCreators'
+import { requestRandomPageData } from '../../redux/slices/animePage/thunk'
 import { useTypedSelector } from '../../hooks'
 
 export function RandomAnimePage() {
   const dispatch: DispatchType = useDispatch()
-  const isLoading = useTypedSelector((state) => state.isLoadingAnimePage)
-  const isError = useTypedSelector((state) => state.isAnimePageError)
-  const isEmpty = useTypedSelector((state) => state.isEmptyPage)
-  const data = useTypedSelector((state) => state.animePageData)
+  const isLoading = useTypedSelector((state) => state.animePage.isLoading)
+  const isError = useTypedSelector((state) => state.animePage.isError)
+  const isEmpty = useTypedSelector((state) => state.animePage.isEmpty)
+  const data = useTypedSelector((state) => state.animePage.data)
   const isSpinnerActive = isLoading || !data
 
   useEffect(() => {
     dispatch(requestRandomPageData())
-
-    return () => {
-      dispatch(fetchAnimePageRequest())
-    }
   }, [dispatch])
 
   return (

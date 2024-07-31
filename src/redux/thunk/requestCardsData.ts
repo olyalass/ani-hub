@@ -1,31 +1,29 @@
-import { Dispatch } from 'redux'
+import { Action, Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 
-import {
-  fetchAnimeEmpty,
-  fetchAnimeFailure,
-  fetchAnimeRequest,
-  fetchAnimeSuccess,
-} from '../thunk/thunkActionCreators'
 import {
   getAnimeData,
   getDupesReplacement,
   parseAnimeResponseItem,
 } from '../../api'
-import { StateType } from '../../types'
+import { AnimeCardType, CardsStateType } from '../../types'
 import { ActionType } from '../actions'
 
-function requestAnimeData(
+function requestCardsData(
   url: string,
   page: number = 1,
   itemsPerPage: number = 1,
-): ThunkAction<void, StateType, unknown, ActionType> {
+  thunkRequest: () => Action,
+  thunkSuccess: (data: AnimeCardType[], totalPages: number) => Action,
+  thunkFailure: () => Action,
+  thunkEmpty: () => Action,
+): ThunkAction<void, CardsStateType, unknown, ActionType> {
   return async (dispatch: Dispatch) => {
-    dispatch(fetchAnimeRequest())
+    dispatch(thunkRequest())
     try {
       const animeResponseResult = await getAnimeData(url)
       if (!animeResponseResult.data[0]) {
-        dispatch(fetchAnimeEmpty())
+        dispatch(thunkEmpty())
       } else {
         const animeData = animeResponseResult.data
         const totalPages = animeResponseResult.totalPages
@@ -36,17 +34,18 @@ function requestAnimeData(
             url,
             page,
             itemsPerPage,
+            totalPages,
           )
         } else {
           uniqueAnimeData = animeData
         }
         const parsedAnimeData = uniqueAnimeData.map(parseAnimeResponseItem)
-        dispatch(fetchAnimeSuccess(parsedAnimeData, totalPages))
+        dispatch(thunkSuccess(parsedAnimeData, totalPages))
       }
     } catch {
-      dispatch(fetchAnimeFailure())
+      dispatch(thunkFailure())
     }
   }
 }
 
-export default requestAnimeData
+export default requestCardsData

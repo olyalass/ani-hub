@@ -1,4 +1,3 @@
-import { Flex } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -11,23 +10,20 @@ import {
   AnimeCard,
 } from '../../components'
 import { AnimeCardType, DispatchType } from '../../types'
-import { clearFilters } from '../../redux/actionCreators'
-import {
-  determineCardsAmountByViewport,
-  createGetTopAnimeUrl,
-} from '../../utils'
-import { requestAnimeData } from '../../redux/thunk'
+import { determineCardsAmountByViewport } from '../../utils'
+import { requestHomeCardsData } from '../../redux/slices/homeCards/thunk'
 import { usePageResize, useTypedSelector } from '../../hooks'
+import { clearHomeFilters } from '../../redux/slices'
 
 const initialCardsAmount = determineCardsAmountByViewport()
 
 function HomeContent() {
   const [cardsAmount, setCardsAmount] = useState(initialCardsAmount)
   const dispatch: DispatchType = useDispatch()
-  const cards = useTypedSelector((state) => state.animeList)
-  const filters = useTypedSelector((state) => state.monoFilter)
-  const isLoading = useTypedSelector((state) => state.isLoadingAnime)
-  const isError = useTypedSelector((state) => state.isAnimeError)
+  const cards = useTypedSelector((state) => state.homeCards.data)
+  const filters = useTypedSelector((state) => state.homeCards.filters)
+  const isLoading = useTypedSelector((state) => state.homeCards.isLoading)
+  const isError = useTypedSelector((state) => state.homeCards.isError)
   const isSpinnerActive = isLoading || !cards
   const isEmpty = false
 
@@ -38,19 +34,16 @@ function HomeContent() {
   usePageResize(onResize)
 
   useEffect(() => {
-    return () => {
-      dispatch(clearFilters())
-    }
-  }, [dispatch])
+    dispatch(requestHomeCardsData(filters, 1, cardsAmount))
+  }, [cardsAmount, dispatch, filters])
 
   useEffect(() => {
-    const url = createGetTopAnimeUrl(filters, cardsAmount)
-    dispatch(requestAnimeData(url, 1, cardsAmount))
-  }, [cardsAmount, dispatch, filters])
+    dispatch(clearHomeFilters())
+  }, [dispatch])
 
   return (
     <Content className="content-container">
-      <Flex wrap="wrap" justify="center" align="center" gap="middle">
+      <div className="content-wrap">
         <CaseComponent
           isError={isError}
           isSpinnerActive={isSpinnerActive}
@@ -61,10 +54,16 @@ function HomeContent() {
         >
           {cards &&
             cards.map((cardData: AnimeCardType) => {
-              return <AnimeCard key={cardData.id} cardData={cardData} />
+              return (
+                <AnimeCard
+                  key={cardData.id}
+                  cardData={cardData}
+                  isDeletable={false}
+                />
+              )
             })}
         </CaseComponent>
-      </Flex>
+      </div>
     </Content>
   )
 }

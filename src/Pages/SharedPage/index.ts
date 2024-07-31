@@ -1,0 +1,1 @@
+export { SharedPage } from './SharedPage'

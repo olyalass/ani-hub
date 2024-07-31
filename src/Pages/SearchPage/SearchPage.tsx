@@ -3,14 +3,7 @@ import SearchContent from './SearchContent'
 
 export function SearchPage() {
   return (
-    <div
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'start',
-        display: 'flex',
-      }}
-    >
+    <div className="search-page">
       <SearchForm />
       <SearchContent />
     </div>

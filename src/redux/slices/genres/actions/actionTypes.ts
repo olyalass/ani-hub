@@ -1,0 +1,5 @@
+export const FETCH_GENRES_SUCCESS = 'FETCH_GENRES_SUCCESS' as const
+
+export const FETCH_GENRES_FAILURE = 'FETCH_GENRES_FAILURE' as const
+
+export const FETCH_GENRES_REQUEST = 'FETCH_GENRES_REQUEST' as const
