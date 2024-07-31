@@ -1,6 +1,5 @@
 import { AnimeBaseResponseType } from '../../types'
-import { filterAnimeDupes } from '../../utils'
-import { setPageNumToUrl } from '../../utils/urlCreators/setPageNumToUrl'
+import { filterAnimeDupes, setPageNumToUrl } from '../../utils'
 import { getAnimeData } from './getAnimeData'
 
 export async function getDupesReplacement(

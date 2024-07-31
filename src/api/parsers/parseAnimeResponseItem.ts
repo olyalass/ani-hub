@@ -9,6 +9,6 @@ export const parseAnimeResponseItem = (
   genres: item.genres.map((genre: { name: string; mal_id: number }) => {
     return { name: genre.name, id: genre.mal_id }
   }),
-  img: item.images.jpg.image_url,
+  img: item.images.jpg.large_image_url,
   rating: item.rating,
 })

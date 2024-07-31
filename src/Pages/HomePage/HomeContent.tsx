@@ -1,4 +1,3 @@
-import { Flex } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -14,6 +13,7 @@ import { AnimeCardType, DispatchType } from '../../types'
 import { determineCardsAmountByViewport } from '../../utils'
 import { requestHomeCardsData } from '../../redux/slices/homeCards/thunk'
 import { usePageResize, useTypedSelector } from '../../hooks'
+import { clearHomeFilters } from '../../redux/slices'
 
 const initialCardsAmount = determineCardsAmountByViewport()
 
@@ -37,9 +37,13 @@ function HomeContent() {
     dispatch(requestHomeCardsData(filters, 1, cardsAmount))
   }, [cardsAmount, dispatch, filters])
 
+  useEffect(() => {
+    dispatch(clearHomeFilters())
+  }, [dispatch])
+
   return (
     <Content className="content-container">
-      <Flex wrap="wrap" justify="center" align="center" gap="middle">
+      <div className="content-wrap">
         <CaseComponent
           isError={isError}
           isSpinnerActive={isSpinnerActive}
@@ -59,7 +63,7 @@ function HomeContent() {
               )
             })}
         </CaseComponent>
-      </Flex>
+      </div>
     </Content>
   )
 }

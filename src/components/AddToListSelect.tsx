@@ -1,9 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Divider, Input, Select, Space, Tooltip } from 'antd'
 import { ChangeEvent, useRef, useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
 import { verifyNewListName } from '../utils'
 import { useTypedSelector } from '../hooks'
-import { useDispatch } from 'react-redux'
 import { DispatchType } from '../types'
 import {
   deleteItemFromList,

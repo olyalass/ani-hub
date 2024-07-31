@@ -64,7 +64,7 @@ function AnimeCard({ cardData, isDeletable }: Props) {
             className="poster"
             alt={cardData.titleEnglish}
             src={cardData.img}
-            style={{ objectFit: 'cover' }}
+            style={{ width: 'inherit' }}
           />
         </div>
       }

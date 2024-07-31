@@ -1,15 +1,13 @@
 export function determineCardsAmountByViewport() {
-  if (window.matchMedia('(min-width: 1767px)').matches) {
+  if (window.matchMedia('(min-width: 1841px)').matches) {
     return 14
-  } else if (window.matchMedia('(min-width: 1542px)').matches) {
+  } else if (window.matchMedia('(min-width: 1581px)').matches) {
     return 12
-  } else if (window.matchMedia('(min-width: 1317px)').matches) {
+  } else if (window.matchMedia('(min-width: 1401px)').matches) {
     return 10
-  } else if (window.matchMedia('(min-width: 1092px)').matches) {
+  } else if (window.matchMedia('(min-width: 1131px)').matches) {
     return 8
-  } else if (window.matchMedia('(min-width: 867px)').matches) {
-    return 6
   } else {
-    return 4
+    return 6
   }
 }

@@ -11,7 +11,7 @@ function ContentEmpty({
       message = "Sorry, there're no animes with these parametres"
       break
     case 'byId':
-      message = "Sorry, anime with this ID doesn't exist"
+      message = "This page doesn't exist"
       break
     case 'byList':
       message = 'This list is empty'

@@ -1,13 +1,13 @@
 import Form from 'antd/es/form/Form'
 import FormItem from 'antd/es/form/FormItem'
-import { useContext, useMemo, useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router'
 import { Button, Switch, Input, Select } from 'antd'
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
+import { useContext, useMemo, useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 
 import { ThemeContext, initialSearchFormData, ratings } from '../../shared'
 import { FiltersType } from '../../types'
@@ -32,15 +32,23 @@ function SearchForm() {
   const isLightTheme = useContext(ThemeContext)
   const genres = useTypedSelector((state) => state.genres.genres)
   const navigate = useNavigate()
+  const [buttonText, setButtonText] = useState('Hide filters')
+  const [isFormOpen, setIsFormOpen] = useState(true)
 
   useEffect(() => {
     setFormObj(urlFormData)
   }, [urlFormData])
 
   return (
-    <aside
+    <div
       className={
-        isLightTheme ? 'search-sider' : 'search-sider search-sider-dark'
+        isLightTheme
+          ? isFormOpen
+            ? 'search-sider'
+            : 'search-sider search-sider-closed'
+          : isFormOpen
+            ? 'search-sider search-sider-dark'
+            : 'search-sider search-sider-closed search-sider-dark'
       }
     >
       <Form
@@ -140,7 +148,18 @@ function SearchForm() {
           Clear filters
         </Button>
       </Form>
-    </aside>
+      <button
+        className="showhide-button"
+        onClick={() => {
+          setButtonText(
+            buttonText === 'Hide filters' ? 'Show filters' : 'Hide filters',
+          )
+          setIsFormOpen(isFormOpen ? false : true)
+        }}
+      >
+        {buttonText}
+      </button>
+    </div>
   )
 }
 

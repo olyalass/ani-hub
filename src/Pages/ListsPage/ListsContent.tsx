@@ -1,6 +1,8 @@
 import { Content } from 'antd/es/layout/layout'
 import { Button, Flex, Input, Modal, Pagination, QRCode } from 'antd'
 import { useState, useCallback, useMemo, useLayoutEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router'
 
 import {
   CaseComponent,
@@ -12,9 +14,7 @@ import {
 import { useTypedSelector, usePageResize } from '../../hooks'
 import { createListShareUrl, determineCardsAmountByViewport } from '../../utils'
 import { requestListAnimeData } from '../../redux/slices'
-import { useDispatch } from 'react-redux'
 import { DispatchType } from '../../types'
-import { useParams } from 'react-router'
 import { copyLinkToClipboard } from '../../utils/copyLinkToClipboard'
 const initialCardsAmount = determineCardsAmountByViewport()
 
@@ -67,13 +67,7 @@ export function ListsContent() {
   usePageResize(onResize)
   return (
     <Content className="content-container">
-      <Flex
-        className="content-wrap"
-        vertical={true}
-        justify="center"
-        align="center"
-        gap="middle"
-      >
+      <Flex vertical={true} justify="center" align="center" gap="middle">
         <CaseComponent
           isError={isError}
           isSpinnerActive={isSpinnerActive}
@@ -82,16 +76,11 @@ export function ListsContent() {
           loadingElement={<ContentLoading />}
           emptyElement={<ContentEmpty type={listname ? 'byList' : 'noList'} />}
         >
-          <Flex
-            wrap="wrap"
-            justify="start"
-            gap="middle"
-            style={{ width: '100%' }}
-          >
+          <div className="content-wrap">
             {listAnimes.map((anime) => (
               <AnimeCard key={anime.id} cardData={anime} isDeletable={true} />
             ))}
-          </Flex>
+          </div>
 
           <Pagination
             showSizeChanger={false}

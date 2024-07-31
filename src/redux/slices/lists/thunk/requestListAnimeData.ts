@@ -1,4 +1,6 @@
 import { Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
+
 import {
   fetchListAnimesEmpty,
   fetchListAnimesFailure,
@@ -12,7 +14,6 @@ import {
 } from '../../../../types'
 import { createGetIdAnimeUrl } from '../../../../utils'
 import { getAnimePageData, parseAnimeResponseItem } from '../../../../api'
-import { ThunkAction } from 'redux-thunk'
 import { ListsActionType } from '../actions/actions'
 
 function requestListAnimeData(

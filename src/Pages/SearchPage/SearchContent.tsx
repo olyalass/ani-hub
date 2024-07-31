@@ -75,7 +75,13 @@ function SearchContent() {
 
   return (
     <Content className="content-container">
-      <Flex vertical={true} justify="center" align="center" gap="middle">
+      <Flex
+        vertical={true}
+        justify="center"
+        align="center"
+        gap="middle"
+        style={{ width: 'fit-content' }}
+      >
         <CaseComponent
           isError={isError}
           isSpinnerActive={isSpinnerActive}
@@ -85,7 +91,7 @@ function SearchContent() {
           emptyElement={<ContentEmpty type="byFilters" />}
         >
           {searchedAnimes && (
-            <Flex wrap="wrap" justify="center" align="center" gap="middle">
+            <div className="content-wrap">
               {searchedAnimes.map((anime) => (
                 <AnimeCard
                   key={anime.id}
@@ -93,7 +99,7 @@ function SearchContent() {
                   isDeletable={false}
                 />
               ))}
-            </Flex>
+            </div>
           )}
           <Pagination
             showSizeChanger={false}

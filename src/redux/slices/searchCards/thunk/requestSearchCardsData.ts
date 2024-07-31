@@ -1,4 +1,5 @@
 import { ThunkAction } from 'redux-thunk'
+
 import { SearchCardsStateType } from '../../../../types'
 import { createAdvancedSearchAnimeUrl } from '../../../../utils'
 import requestCardsData from '../../../thunk/requestCardsData'

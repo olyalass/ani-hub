@@ -11,7 +11,6 @@ import {
 } from '../../components'
 import { DispatchType } from '../../types'
 import { requestRandomPageData } from '../../redux/slices/animePage/thunk'
-//import { fetchAnimePageRequest } from '../../redux/slices'
 import { useTypedSelector } from '../../hooks'
 
 export function RandomAnimePage() {
@@ -24,10 +23,6 @@ export function RandomAnimePage() {
 
   useEffect(() => {
     dispatch(requestRandomPageData())
-
-    // return () => {
-    //   dispatch(fetchAnimePageRequest())
-    // }
   }, [dispatch])
 
   return (

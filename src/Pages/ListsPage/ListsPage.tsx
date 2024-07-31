@@ -3,15 +3,7 @@ import ListsMenu from './ListsMenu'
 
 export function ListsPage() {
   return (
-    <div
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'start',
-        display: 'flex',
-        width: '100%',
-      }}
-    >
+    <div className="lists-page">
       <ListsMenu />
       <ListsContent />
     </div>
