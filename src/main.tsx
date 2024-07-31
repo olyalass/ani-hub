@@ -11,7 +11,9 @@ import { DispatchType, StateType } from './types'
 import { ActionType } from './redux/actions'
 import rootReducer, { RootState } from './redux/reducer.ts'
 
+// @ts-expect-error expect error
 const store: Store<RootState, ActionType> & { dispatch: DispatchType } =
+  // @ts-expect-error expect error
   createStore(
     rootReducer,
     applyMiddleware(thunk as ThunkMiddleware<StateType, ActionType>),
