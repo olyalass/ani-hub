@@ -117,7 +117,11 @@ export function ListsContent() {
               top: '30vh',
             }}
           >
-            <QRCode value={shareLink} color="#d29ada" icon="/kitsune.svg" />
+            <QRCode
+              value={shareLink}
+              color="#d29ada"
+              icon="../../../public/kitsune.svg"
+            />
             <Input
               value={shareLink}
               onClick={() => copyLinkToClipboard(shareLink)}
