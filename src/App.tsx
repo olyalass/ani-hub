@@ -24,9 +24,9 @@ import {
   RandomAnimePage,
   AnimeByIdPage,
   ListsPage,
-} from './app-pages'
+} from './pages'
 import { requestLists, requestGenres } from './redux/slices'
-import { SharedPage } from './app-pages/SharedPage'
+import { SharedPage } from './pages/SharedPage'
 import { burgerNavItems, navItems } from './utils/createNavItems'
 import { SizeContext } from './shared/SizeContext'
 const isSystemThemeLight = window.matchMedia(
