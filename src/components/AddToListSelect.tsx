@@ -95,7 +95,7 @@ function AddToListSelect({
       disabled={isLoading}
       className={
         isBigCard
-          ? 'add-to-list-select add-to-list-select-right'
+          ? 'add-to-list-select add-to-list-select-big'
           : 'add-to-list-select'
       }
       ref={inputRef.current}

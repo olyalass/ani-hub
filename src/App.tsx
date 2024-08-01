@@ -80,7 +80,9 @@ function App() {
     <SizeContext.Provider value={isNarrowScreen}>
       <ThemeContext.Provider value={isLightTheme}>
         <ConfigProvider theme={getAppStyleUpgrades(isLightTheme)}>
-          <Layout style={{ minHeight: '100vh' }}>
+          <Layout
+            style={{ minHeight: '100vh', width: '100vw', overflowX: 'hidden' }}
+          >
             <Header className="header">
               <div className="header-container">
                 <Link to="/">

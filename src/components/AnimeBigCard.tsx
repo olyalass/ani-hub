@@ -40,7 +40,7 @@ function AnimeBigCard({ data }: { data: AnimePageDataType }) {
       <Badge
         status={getStatusForBadge(data.status)}
         text={data.status}
-        style={{ position: 'absolute', top: '2vw', right: '2vw' }}
+        style={{ position: 'absolute', top: '10px', right: '20px' }}
       />
       <div className="anime-big-card">
         <div
@@ -51,8 +51,8 @@ function AnimeBigCard({ data }: { data: AnimePageDataType }) {
             gap: '20px',
           }}
         >
-          <Badge count={data.score}>
-            <Image src={data.img} alt={data.cardTitle} width="20vw" />
+          <Badge className="poster-badge" count={data.score}>
+            <Image className="poster" src={data.img} alt={data.cardTitle} />
           </Badge>
           {data.trailer && (
             <Typography.Link href={data.trailer} target="_blank">

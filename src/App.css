@@ -90,6 +90,10 @@
   justify-content: start;
 }
 
+.poster {
+  width: 20vw !important;
+}
+
 .anime-card {
   width: 200px;
   height: 435px;
@@ -174,7 +178,7 @@
   gap: 30px;
   justify-content: space-between;
   align-items: start;
-  padding: 3vw;
+  padding: 30px 0;
   border-radius: 10px;
   min-width: 60vw;
   max-width: 70vw;
@@ -226,6 +230,7 @@
 .random-button {
   border-color: #d29ada;
   color: #d29ada;
+  margin-bottom: 30px;
 }
 
 .multi-card-container {
@@ -241,7 +246,7 @@
   width: 80%;
 }
 
-.add-to-list-select-right {
+.add-to-list-select-big {
   width: 250px;
   position: static;
 }
@@ -281,6 +286,9 @@
   align-items: start;
   display: flex;
   width: 100%;
+}
+
+.anime-page-wrap {
 }
 
 @media (max-width: 1840px) {
@@ -330,6 +338,17 @@
 
   .nav {
     justify-content: end;
+  }
+
+  .poster {
+    width: 100% !important;
+  }
+
+  .poster-badge {
+    width: 80%;
+  }
+  .anime-big-card-extra {
+    padding: 0;
   }
 }
 
@@ -433,5 +452,17 @@
 @media (max-width: 442px) {
   .content-wrap {
     width: 220px;
+  }
+
+  .ant-descriptions.ant-descriptions-bordered > .ant-descriptions-view > table {
+    table-layout: fixed !important;
+  }
+
+  .anime-big-card {
+    max-width: unset;
+  }
+
+  .add-to-list-select-big {
+    width: 100px;
   }
 }

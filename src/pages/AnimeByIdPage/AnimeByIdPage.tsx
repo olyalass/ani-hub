@@ -28,17 +28,19 @@ export function AnimeByIdPage() {
   }, [dispatch, id])
 
   return (
-    <div className="random-container">
-      <CaseComponent
-        isError={isError}
-        isSpinnerActive={isLoading}
-        isEmpty={isEmpty}
-        errorElement={<ContentError />}
-        loadingElement={<ContentLoading />}
-        emptyElement={<ContentEmpty type="byId" />}
-      >
-        {data && <AnimeBigCard data={data} />}
-      </CaseComponent>
+    <div className="content-container">
+      <div className="anime-page-wrap">
+        <CaseComponent
+          isError={isError}
+          isSpinnerActive={isLoading}
+          isEmpty={isEmpty}
+          errorElement={<ContentError />}
+          loadingElement={<ContentLoading />}
+          emptyElement={<ContentEmpty type="byId" />}
+        >
+          {data && <AnimeBigCard data={data} />}
+        </CaseComponent>
+      </div>
     </div>
   )
 }
