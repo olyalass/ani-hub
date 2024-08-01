@@ -90,7 +90,7 @@
   justify-content: start;
 }
 
-.poster {
+.poster-big {
   width: 20vw !important;
 }
 
@@ -340,7 +340,7 @@
     justify-content: end;
   }
 
-  .poster {
+  .poster-big {
     width: 100% !important;
   }
 

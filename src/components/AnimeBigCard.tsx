@@ -52,7 +52,7 @@ function AnimeBigCard({ data }: { data: AnimePageDataType }) {
           }}
         >
           <Badge className="poster-badge" count={data.score}>
-            <Image className="poster" src={data.img} alt={data.cardTitle} />
+            <Image className="poster-big" src={data.img} alt={data.cardTitle} />
           </Badge>
           {data.trailer && (
             <Typography.Link href={data.trailer} target="_blank">
