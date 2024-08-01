@@ -27,6 +27,7 @@ OR
 - add animes to your lists from any page (if it shows you any anime info ofc)
 - share your list with others
 - save a shared list to your lists
+- the app is adapted for any screen size from 320px
 
 
 ## Architecture & technologies: 
