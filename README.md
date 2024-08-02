@@ -20,7 +20,7 @@ OR
 ## Features:
 - fetch anime info from Jikan API
 - get more info about the anime, clicking on the card
-- get top anime on Home page or top anime in a particuular category
+- get top anime on Home page or top anime in a particular category
 - search for animes on Search page according to advanced filters (including rating, genres, titles, excluded genres, status) in a chosen order
 - get random anime on Random page (**custom made**, not from API)
 - create your custom lists (stored in your inxedDB) with any animes you want
@@ -31,7 +31,7 @@ OR
 
 
 ## Architecture & technologies: 
-- **React** & **Redux** based 
+- **TypeScript**, **React** & **Redux** based 
 - navigation via **react-router**
 - **redux-thunk**
 - **indexedDB** to store custom lists
