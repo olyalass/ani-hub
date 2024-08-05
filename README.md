@@ -6,6 +6,10 @@ Anime catalogue, which supports different types of filters, user's custom lists 
 
 ---
 
+## Attention!
+If you see a fetch error while using the app, try to turn on VPN. Jikan API may malfunction in some regions (e.g., in Russia) 
+
+
 ## Installation:
 1. Clone repo https://github.com/olyalass/anime-universe.git
 2. `npm install`
