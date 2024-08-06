@@ -86,7 +86,7 @@ function App() {
             <Header className="header">
               <div className="header-container">
                 <Link to="/">
-                  <h1 className="app-title">Anime Universe</h1>
+                  <h1 className="app-title">AniHub</h1>
                 </Link>
                 <div className="nav">
                   <Space.Compact size="middle" className="search-container">
