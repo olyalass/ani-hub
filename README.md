@@ -1,4 +1,4 @@
-# Anime-Universe
+# AniHub
 
 
 ## Description:
@@ -11,14 +11,15 @@ If you see a fetch error while using the app, try to turn on VPN. Jikan API may 
 
 
 ## Installation:
-1. Clone repo https://github.com/olyalass/anime-universe.git
+1. Clone repo https://github.com/olyalass/ani-hub.git
 2. `npm install`
-3. `npm run dev`
+3. `cd ani-hub`
+4. `npm run dev`
 
 OR
 
 ## Deploy: 
-[https://anime-universe.netlify.app](https://anime-universe.netlify.app)
+[https://ani-hub.netlify.app](https://ani-hub.netlify.app)
 
 
 ## Features:
